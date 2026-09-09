@@ -11,10 +11,10 @@ from pathlib import Path
 import sys
 
 # Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from dump_pricing_text import extract_schumer_rows, extract_full_text
-from parse_pricing_deterministic import (
+from src.pricing.dump_pricing_text import extract_schumer_rows, extract_full_text
+from src.pricing.parse_pricing_deterministic import (
     parse_pricing,
     parse_apr_range,
     parse_intro_apr,
@@ -344,7 +344,7 @@ class TestNoBedrock:
     
     def test_parse_pricing_does_not_import_boto3(self):
         """Verify parse_pricing_deterministic.py doesn't import boto3."""
-        parser_file = Path(__file__).parent.parent / "src" / "parse_pricing_deterministic.py"
+        parser_file = Path(__file__).parent.parent / "src" / "pricing" / "parse_pricing_deterministic.py"
         content = parser_file.read_text()
         
         assert "boto3" not in content, "Parser should not import boto3"

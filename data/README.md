@@ -1,4 +1,4 @@
-# Output Folder - File Purposes
+# Data Folder - File Purposes
 
 ## File Categories
 
@@ -6,14 +6,14 @@
 
 **`chase_cards.json`** (85 KB)
 - **Purpose**: Raw scraped data from Chase website
-- **Created by**: `python src/chase_scraper.py`
+- **Created by**: `python src/scraper/chase_scraper.py`
 - **Contains**: 82 raw card records with all scraped fields
 - **Used by**: `clean_data.py` as input
 - **Status**: ✅ Keep - Required for pipeline
 
 **`chase_cards_clean.json`** (24 KB)
 - **Purpose**: Cleaned and deduplicated base card data
-- **Created by**: `python src/clean_data.py`
+- **Created by**: `python src/scraper/clean_data.py`
 - **Contains**: 41 unique cards with standardized fields + card_id
 - **Used by**: All extraction scripts as the master card list
 - **Status**: ✅ Keep - Required for pipeline
@@ -26,7 +26,7 @@
 - **Purpose**: HTML pricing pages converted to Markdown
 - **Created by**: `dump_pricing_text.py`
 - **Contains**: Schumer Box tables in Markdown format
-- **Used by**: `extract_pricing_extended.py` as input
+- **Used by**: `parse_pricing_deterministic.py` as input
 - **Reusable**: Yes - skipped if <24 hours old (unless --force)
 - **Status**: ⚠️ Optional - Can regenerate, but saves time/bandwidth
 
@@ -44,7 +44,7 @@
 
 **`extracted_pricing_extended.json`** (3 KB)
 - **Purpose**: Combined pricing data for all processed cards
-- **Created by**: `extract_pricing_extended.py`
+- **Created by**: `parse_pricing_deterministic.py`
 - **Contains**: Array of pricing records (27 fields per card)
 - **Format**:
   ```json
@@ -153,14 +153,14 @@ If you want to minimize storage:
 
 ```bash
 # Keep only final outputs
-rm -rf output/raw/
-rm output/chase_cards.json
+rm -rf data/raw/
+rm data/chase_cards.json
 
 # Keep these:
-# - output/chase_cards_clean.json
-# - output/extracted_pricing_extended.json
-# - output/extracted_rewards_extended.json
-# - output/cards/*.json
+# - data/chase_cards_clean.json
+# - data/extracted_pricing_extended.json
+# - data/extracted_rewards_extended.json
+# - data/cards/*.json
 ```
 
 The pipeline will regenerate `raw/` dumps as needed on the next run.

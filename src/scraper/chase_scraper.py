@@ -16,7 +16,7 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 URL = "https://creditcards.chase.com/all-credit-cards?iCELL=6ZYD"
-OUTPUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "output")
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "data")
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "chase_cards.json")
 
 

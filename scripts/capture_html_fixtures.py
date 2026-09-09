@@ -1,6 +1,9 @@
 """Capture HTML fixtures for pricing parser tests."""
+import os
 import time
 from playwright.sync_api import sync_playwright
+
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Representative cards covering different formats
 cards = [

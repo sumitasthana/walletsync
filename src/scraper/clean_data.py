@@ -217,8 +217,8 @@ def clean_card_data(raw_card: dict) -> dict:
 def main():
     # Setup absolute paths
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(script_dir)
-    output_dir = os.path.join(project_root, 'output')
+    project_root = os.path.dirname(os.path.dirname(script_dir))
+    output_dir = os.path.join(project_root, 'data')
     
     # Load raw data
     input_path = os.path.join(output_dir, 'chase_cards.json')

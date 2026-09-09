@@ -1,11 +1,14 @@
 """Quick script to check extraction coverage."""
 import json
+import os
+
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Load data
-cards = json.load(open('output/chase_cards_clean.json'))
-pricing = json.load(open('output/extracted_pricing_extended.json'))
-rewards_pdf = json.load(open('output/extracted_rewards_extended.json'))
-rewards_html = json.load(open('output/extracted_rewards_html_fallback.json'))
+cards = json.load(open('data/chase_cards_clean.json'))
+pricing = json.load(open('data/extracted_pricing_extended.json'))
+rewards_pdf = json.load(open('data/extracted_rewards_extended.json'))
+rewards_html = json.load(open('data/extracted_rewards_html_fallback.json'))
 
 # Extract IDs
 pricing_ids = {p['card_id'] for p in pricing if 'card_id' in p}

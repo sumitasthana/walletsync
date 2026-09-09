@@ -1,11 +1,14 @@
 """Verify extraction coverage after full run."""
 import json
+import os
 from collections import Counter
 
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 # Load all extraction outputs
-pricing = json.load(open('output/extracted_pricing_extended.json'))
-rewards_pdf = json.load(open('output/extracted_rewards_extended.json'))
-rewards_html = json.load(open('output/extracted_rewards_html_fallback.json'))
+pricing = json.load(open('data/extracted_pricing_extended.json'))
+rewards_pdf = json.load(open('data/extracted_rewards_extended.json'))
+rewards_html = json.load(open('data/extracted_rewards_html_fallback.json'))
 
 # Extract card records (skip metadata)
 pricing_cards = [p for p in pricing if 'card_id' in p]
@@ -35,7 +38,7 @@ print(f"  Expected tier_2_html: ~9, Actual: {tiers.get('tier_2_html', 0)}")
 print(f"  Expected tier_3_none: ~1, Actual: {41 - len(rewards_pdf_cards) - len(rewards_html_cards)}")
 
 # List cards with no rewards data
-all_cards = json.load(open('output/chase_cards_clean.json'))
+all_cards = json.load(open('data/chase_cards_clean.json'))
 rewards_pdf_ids = {r['card_id'] for r in rewards_pdf_cards}
 rewards_html_ids = {r['card_id'] for r in rewards_html_cards}
 no_rewards = [c for c in all_cards if c['card_id'] not in rewards_pdf_ids and c['card_id'] not in rewards_html_ids]

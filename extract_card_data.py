@@ -24,9 +24,9 @@ Examples:
     python extract_card_data.py --list
 
 Output:
-    - output/cards/<card_id>.json - Complete card data (pricing + rewards merged)
-    - output/extracted_pricing_extended.json - All pricing data
-    - output/extracted_rewards_extended.json - All rewards data
+    - data/cards/<card_id>.json - Complete card data (pricing + rewards merged)
+    - data/extracted_pricing_extended.json - All pricing data
+    - data/extracted_rewards_extended.json - All rewards data
 """
 
 import argparse
@@ -51,9 +51,9 @@ log = logging.getLogger(__name__)
 
 def load_cleaned_cards() -> List[Dict]:
     """Load cleaned card data."""
-    cleaned_path = Path('output/chase_cards_clean.json')
+    cleaned_path = Path('data/chase_cards_clean.json')
     if not cleaned_path.exists():
-        log.error("Cleaned card data not found. Run src/clean_data.py first.")
+        log.error("Cleaned card data not found. Run src/scraper/clean_data.py first.")
         sys.exit(1)
     
     with open(cleaned_path, 'r', encoding='utf-8') as f:
@@ -105,7 +105,7 @@ def extract_dumps(card_ids: List[str], force: bool = False):
     
     # Run dump_pricing_text.py
     log.info("Dumping pricing pages...")
-    cmd = ['python', 'src/dump_pricing_text.py']
+    cmd = ['python', 'src/pricing/dump_pricing_text.py']
     if force:
         cmd.append('--force')
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -115,7 +115,7 @@ def extract_dumps(card_ids: List[str], force: bool = False):
     
     # Run dump_rewards_text.py
     log.info("Dumping rewards PDFs...")
-    cmd = ['python', 'src/dump_rewards_text.py']
+    cmd = ['python', 'src/rewards/dump_rewards_text.py']
     if force:
         cmd.append('--force')
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -134,7 +134,7 @@ def extract_structured_data(card_ids: List[str], force: bool = False):
     
     # Run extract_pricing_extended.py
     log.info("Extracting pricing data...")
-    cmd = ['python', 'src/extract_pricing_extended.py']
+    cmd = ['python', 'src/pricing/parse_pricing_deterministic.py']
     if force:
         cmd.append('--force')
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -144,7 +144,7 @@ def extract_structured_data(card_ids: List[str], force: bool = False):
     
     # Run extract_rewards_extended.py
     log.info("Extracting rewards data...")
-    cmd = ['python', 'src/extract_rewards_extended.py']
+    cmd = ['python', 'src/rewards/extract_rewards_extended.py']
     if force:
         cmd.append('--force')
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -158,7 +158,7 @@ def extract_structured_data(card_ids: List[str], force: bool = False):
 def merge_card_data(card_id: str) -> Optional[Dict]:
     """Merge pricing and rewards data for a single card."""
     # Load pricing data
-    pricing_path = Path('output/extracted_pricing_extended.json')
+    pricing_path = Path('data/extracted_pricing_extended.json')
     pricing_data = None
     if pricing_path.exists():
         with open(pricing_path, 'r', encoding='utf-8') as f:
@@ -171,7 +171,7 @@ def merge_card_data(card_id: str) -> Optional[Dict]:
                     break
     
     # Load rewards data
-    rewards_path = Path('output/extracted_rewards_extended.json')
+    rewards_path = Path('data/extracted_rewards_extended.json')
     rewards_data = None
     if rewards_path.exists():
         with open(rewards_path, 'r', encoding='utf-8') as f:
@@ -222,8 +222,8 @@ def merge_card_data(card_id: str) -> Optional[Dict]:
 
 
 def save_individual_card(card_id: str, data: Dict):
-    """Save individual card data to output/cards/<card_id>.json"""
-    cards_dir = Path('output/cards')
+    """Save individual card data to data/cards/<card_id>.json"""
+    cards_dir = Path('data/cards')
     cards_dir.mkdir(parents=True, exist_ok=True)
     
     output_path = cards_dir / f"{card_id}.json"
@@ -250,7 +250,7 @@ def main():
     # Options
     parser.add_argument('--force', action='store_true', help='Force re-extraction even if data exists')
     parser.add_argument('--skip-dumps', action='store_true', help='Skip dump step (use existing dumps)')
-    parser.add_argument('--output-dir', default='output/cards', help='Output directory for individual card JSONs')
+    parser.add_argument('--output-dir', default='data/cards', help='Output directory for individual card JSONs')
     
     args = parser.parse_args()
     
@@ -326,9 +326,9 @@ def main():
     log.info(f"EXTRACTION COMPLETE")
     log.info(f"{'='*80}")
     log.info(f"✓ Successfully extracted: {success_count}/{len(card_ids)} cards")
-    log.info(f"✓ Individual card files: output/cards/")
-    log.info(f"✓ Combined pricing data: output/extracted_pricing_extended.json")
-    log.info(f"✓ Combined rewards data: output/extracted_rewards_extended.json")
+    log.info(f"✓ Individual card files: data/cards/")
+    log.info(f"✓ Combined pricing data: data/extracted_pricing_extended.json")
+    log.info(f"✓ Combined rewards data: data/extracted_rewards_extended.json")
     log.info(f"{'='*80}\n")
 
 

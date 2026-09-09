@@ -7,7 +7,9 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-from schemas import PricingExtended
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+
+from src.common.schemas import PricingExtended
 
 logging.basicConfig(
     level=logging.INFO,
@@ -344,10 +346,10 @@ def main():
     """Main execution - parse all pricing dumps."""
     # Setup paths
     script_dir = Path(__file__).parent
-    project_root = script_dir.parent
-    dump_dir = project_root / "output" / "raw" / "pricing"
-    output_path = project_root / "output" / "extracted_pricing_extended.json"
-    failures_path = project_root / "output" / "pricing_parse_failures.json"
+    project_root = script_dir.parent.parent
+    dump_dir = project_root / "data" / "raw" / "pricing"
+    output_path = project_root / "data" / "extracted_pricing_extended.json"
+    failures_path = project_root / "data" / "pricing_parse_failures.json"
     
     log.info(f"Loading dumps from {dump_dir}")
     

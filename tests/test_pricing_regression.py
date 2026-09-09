@@ -5,8 +5,8 @@ from pathlib import Path
 import pytest
 
 # Load baseline and current outputs
-BASELINE = json.load(open("output/baseline_pricing_llm.json", encoding='utf-8'))
-CURRENT = json.load(open("output/extracted_pricing_extended.json", encoding='utf-8'))
+BASELINE = json.load(open("data/baseline_pricing_llm.json", encoding='utf-8'))
+CURRENT = json.load(open("data/extracted_pricing_extended.json", encoding='utf-8'))
 
 
 def _by_card_id(records):

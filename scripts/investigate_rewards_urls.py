@@ -3,8 +3,10 @@ Investigate rewards PDF URLs for cards with missing/broken URLs.
 """
 import json
 import logging
+import os
 from playwright.sync_api import sync_playwright
 
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger(__name__)
 
@@ -136,7 +138,7 @@ def investigate_card(page, card_name, details_url):
 
 def main():
     # Load cards
-    with open("output/chase_cards_clean.json", "r", encoding="utf-8") as f:
+    with open("data/chase_cards_clean.json", "r", encoding="utf-8") as f:
         cards = json.load(f)
     
     # Find cards to investigate
@@ -158,7 +160,7 @@ def main():
         
         for card in cards_to_check:
             # Try to get details_url from raw data
-            with open("output/chase_cards.json", "r", encoding="utf-8") as f:
+            with open("data/chase_cards.json", "r", encoding="utf-8") as f:
                 raw_cards = json.load(f)
             
             details_url = None
@@ -177,7 +179,8 @@ def main():
         browser.close()
     
     # Write markdown report
-    with open("output/rewards_url_investigation.md", "w", encoding="utf-8") as f:
+    os.makedirs("docs/reports", exist_ok=True)
+    with open("docs/reports/rewards_url_investigation.md", "w", encoding="utf-8") as f:
         f.write("# Rewards URL Investigation\n\n")
         f.write("Investigation of 10 cards with missing/broken rewards PDF URLs.\n\n")
         f.write("---\n\n")
@@ -221,7 +224,7 @@ def main():
         f.write(f"- **Errors:** {errors} cards\n")
         f.write(f"- **Total:** {len(results)} cards\n\n")
     
-    log.info(f"\n✓ Investigation complete. Report saved to output/rewards_url_investigation.md")
+    log.info(f"\n✓ Investigation complete. Report saved to docs/reports/rewards_url_investigation.md")
     
     # Print summary
     print("\n" + "="*80)

@@ -4,9 +4,9 @@ import sys
 import os
 
 # Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from clean_data import extract_base_earn_rate
+from src.scraper.clean_data import extract_base_earn_rate
 
 
 def test_freedom_flex():

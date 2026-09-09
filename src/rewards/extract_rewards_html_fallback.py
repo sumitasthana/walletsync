@@ -25,9 +25,9 @@ from botocore.exceptions import ClientError
 load_dotenv()
 
 # Add project root to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
-from src.schemas import RewardsHtmlFallback, ALLOWED_CATEGORIES, coerce_null_strings
+from src.common.schemas import RewardsHtmlFallback, ALLOWED_CATEGORIES, coerce_null_strings
 
 logging.basicConfig(
     level=logging.INFO,
@@ -187,8 +187,8 @@ def main():
     
     # Setup paths
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(script_dir)
-    output_dir = os.path.join(project_root, 'output')
+    project_root = os.path.dirname(os.path.dirname(script_dir))
+    output_dir = os.path.join(project_root, 'data')
     output_path = os.path.join(output_dir, 'extracted_rewards_html_fallback.json')
     
     # Load cleaned cards

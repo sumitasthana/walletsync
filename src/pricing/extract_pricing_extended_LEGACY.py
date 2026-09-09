@@ -25,8 +25,10 @@ import boto3
 from botocore.exceptions import ClientError
 from dotenv import load_dotenv
 
-from dump_utils import parse_frontmatter
-from schemas import PricingExtended, coerce_null_strings
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+
+from src.common.dump_utils import parse_frontmatter
+from src.common.schemas import PricingExtended, coerce_null_strings
 
 load_dotenv()
 
@@ -301,8 +303,8 @@ def main():
     
     # Setup absolute paths
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(script_dir)
-    output_dir = os.path.join(project_root, 'output')
+    project_root = os.path.dirname(os.path.dirname(script_dir))
+    output_dir = os.path.join(project_root, 'data')
     dump_dir = os.path.join(output_dir, 'raw', 'pricing')
     output_path = os.path.join(output_dir, 'extracted_pricing_extended.json')
     

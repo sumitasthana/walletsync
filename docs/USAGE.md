@@ -51,7 +51,7 @@ python extract_card_data.py --batch 5 --force
 The application generates three types of output:
 
 ### 1. Individual Card Files
-**Location**: `output/cards/<card_id>.json`
+**Location**: `data/cards/<card_id>.json`
 
 Each file contains complete card data with three sections:
 
@@ -92,7 +92,7 @@ Each file contains complete card data with three sections:
 ```
 
 ### 2. Combined Pricing Data
-**Location**: `output/extracted_pricing_extended.json`
+**Location**: `data/extracted_pricing_extended.json`
 
 Array of all extracted pricing data with 27 fields per card including:
 - APR ranges (purchase, balance transfer, cash advance, penalty)
@@ -101,7 +101,7 @@ Array of all extracted pricing data with 27 fields per card including:
 - APR index and margins
 
 ### 3. Combined Rewards Data
-**Location**: `output/extracted_rewards_extended.json`
+**Location**: `data/extracted_rewards_extended.json`
 
 Array of all extracted rewards data with nested structures:
 - Earning categories (with caps, activation requirements)
@@ -127,7 +127,7 @@ optional arguments:
   --force               Force re-extraction even if data exists
   --skip-dumps          Skip dump step (use existing dumps)
   --output-dir OUTPUT_DIR
-                        Output directory for individual card JSONs (default: output/cards)
+                        Output directory for individual card JSONs (default: data/cards)
 ```
 
 ## Pipeline Stages
@@ -137,17 +137,17 @@ The extraction pipeline has 3 stages:
 ### Stage 1: Raw Dumps
 - Scrapes pricing pages (HTML → Markdown)
 - Downloads rewards PDFs (PDF → Text)
-- Saves to `output/raw/pricing/` and `output/raw/rewards/`
+- Saves to `data/raw/pricing/` and `data/raw/rewards/`
 - **Skip with**: `--skip-dumps` (uses existing dumps)
 
 ### Stage 2: Structured Extraction
 - Calls AWS Bedrock (Claude 3 Haiku) to extract structured data
 - Validates with Pydantic schemas
-- Saves to `output/extracted_pricing_extended.json` and `output/extracted_rewards_extended.json`
+- Saves to `data/extracted_pricing_extended.json` and `data/extracted_rewards_extended.json`
 
 ### Stage 3: Merge & Save
 - Merges pricing + rewards + base card data
-- Saves individual card files to `output/cards/`
+- Saves individual card files to `data/cards/`
 
 ## Examples
 
@@ -201,7 +201,7 @@ python extract_card_data.py --list
 
 ### "Pricing extraction failed"
 - Check AWS credentials are set
-- Verify dumps exist in `output/raw/pricing/`
+- Verify dumps exist in `data/raw/pricing/`
 - Try with `--force` to regenerate dumps
 
 ### "No cards with URLs found"
@@ -212,18 +212,18 @@ python extract_card_data.py --list
 
 ### Extract only pricing data
 ```bash
-python src/extract_pricing_extended.py
+python src/pricing/parse_pricing_deterministic.py
 ```
 
 ### Extract only rewards data
 ```bash
-python src/extract_rewards_extended.py
+python src/rewards/extract_rewards_extended.py
 ```
 
 ### Generate dumps only
 ```bash
-python src/dump_pricing_text.py
-python src/dump_rewards_text.py
+python src/pricing/dump_pricing_text.py
+python src/rewards/dump_rewards_text.py
 ```
 
 ## File Structure
@@ -231,20 +231,25 @@ python src/dump_rewards_text.py
 ```
 WalletSync/
 ├── extract_card_data.py          # Main CLI application
-├── output/
-│   ├── cards/                     # Individual card JSON files
-│   │   ├── freedom-flex-a6950e.json
-│   │   └── ...
-│   ├── extracted_pricing_extended.json
-│   ├── extracted_rewards_extended.json
-│   ├── chase_cards_clean.json     # Base card data
-│   └── raw/
-│       ├── pricing/               # Markdown dumps
-│       └── rewards/               # PDF text dumps
-└── src/
-    ├── dump_pricing_text.py
-    ├── dump_rewards_text.py
-    ├── extract_pricing_extended.py
-    ├── extract_rewards_extended.py
-    └── schemas.py
+├── docs/                         # Guides and run reports
+├── scripts/                     # One-off utilities
+├── src/
+│   ├── common/                   # schemas, dump_utils, pdf_utils
+│   ├── pricing/                  # dump, deterministic parser, legacy LLM
+│   ├── rewards/                  # dump, PDF parser, HTML fallback
+│   └── scraper/                 # chase_scraper, clean_data
+├── tests/
+│   ├── test_pricing_parser.py
+│   ├── test_pricing_regression.py
+│   └── fixtures/
+└── data/
+    ├── chase_cards.json          # Raw scraped data
+    ├── chase_cards_clean.json    # Cleaned base card data
+    ├── extracted_pricing_extended.json
+    ├── extracted_rewards_extended.json
+    ├── extracted_rewards_html_fallback.json
+    ├── cards/                    # Merged per-card JSON files
+    └── raw/
+        ├── pricing/              # Structured JSON dumps
+        └── rewards/              # PDF text dumps
 ```

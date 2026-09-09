@@ -8,7 +8,9 @@ import sys
 import time
 from datetime import datetime, timezone
 
-from pdf_utils import download_and_extract_pdf_text
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+
+from src.common.pdf_utils import download_and_extract_pdf_text
 
 logging.basicConfig(
     level=logging.INFO,
@@ -66,8 +68,8 @@ def main():
     
     # Setup absolute paths
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(script_dir)
-    output_dir = os.path.join(project_root, 'output')
+    project_root = os.path.dirname(os.path.dirname(script_dir))
+    output_dir = os.path.join(project_root, 'data')
     dump_dir = os.path.join(output_dir, 'raw', 'rewards')
     
     # Ensure dump directory exists

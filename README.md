@@ -36,7 +36,7 @@ python extract_card_data.py --batch 5
 ## Output Files
 
 ### Individual Card Files
-`output/cards/<card_id>.json` - Complete merged data per card
+`data/cards/<card_id>.json` - Complete merged data per card
 
 ```json
 {
@@ -61,12 +61,12 @@ python extract_card_data.py --batch 5
 ```
 
 ### Combined Files
-- `output/extracted_pricing_extended.json` - All pricing data
-- `output/extracted_rewards_extended.json` - All rewards data
+- `data/extracted_pricing_extended.json` - All pricing data
+- `data/extracted_rewards_extended.json` - All rewards data
 
 ## Documentation
 
-See [USAGE.md](USAGE.md) for complete documentation including:
+See [USAGE.md](docs/USAGE.md) for complete documentation including:
 - Command line options
 - Data schemas
 - Pipeline stages
@@ -78,29 +78,46 @@ See [USAGE.md](USAGE.md) for complete documentation including:
 ```
 WalletSync/
 ├── extract_card_data.py                    # Main CLI application
+├── requirements.txt
+├── docs/                                   # Guides and run reports
+│   ├── USAGE.md                            # Complete usage guide
+│   ├── DATA_QUALITY_TIERS.md               # Data quality tier contract
+│   ├── PATH_B_COMPLETE.md                 # Deterministic pricing notes
+│   └── reports/                           # Run summaries and investigations
+├── scripts/                               # One-off utilities
+│   ├── capture_html_fixtures.py
+│   ├── check_coverage.py
+│   ├── create_pricing_fixtures.py
+│   ├── investigate_rewards_urls.py
+│   └── verify_coverage.py
 ├── src/
-│   ├── chase_scraper.py                    # Initial scraper
-│   ├── clean_data.py                       # Data cleaning
-│   ├── dump_pricing_text.py                # HTML → Structured JSON
-│   ├── dump_rewards_text.py                # PDF → Text
-│   ├── parse_pricing_deterministic.py      # Deterministic pricing parser (Path B)
-│   ├── extract_pricing_extended_LEGACY.py  # DEPRECATED - LLM-based (kept for reference)
-│   ├── extract_rewards_extended.py         # LLM rewards parser (PDF)
-│   ├── extract_rewards_html_fallback.py    # LLM rewards parser (HTML)
-│   ├── build_unified_dataset.py            # Merge pricing + rewards
-│   ├── schemas.py                          # Pydantic models
-│   ├── dump_utils.py
-│   └── pdf_utils.py
+│   ├── common/
+│   │   ├── schemas.py                      # Pydantic models
+│   │   ├── dump_utils.py
+│   │   └── pdf_utils.py
+│   ├── pricing/
+│   │   ├── dump_pricing_text.py            # HTML to structured JSON
+│   │   ├── parse_pricing_deterministic.py  # Deterministic parser (Path B)
+│   │   └── extract_pricing_extended_LEGACY.py  # DEPRECATED, kept for reference
+│   ├── rewards/
+│   │   ├── dump_rewards_text.py            # PDF to text
+│   │   ├── extract_rewards_extended.py     # LLM rewards parser (PDF)
+│   │   └── extract_rewards_html_fallback.py # LLM rewards parser (HTML)
+│   └── scraper/
+│       ├── chase_scraper.py                # Initial scraper
+│       └── clean_data.py                   # Data cleaning
 ├── tests/
-│   ├── test_pricing_parser.py              # 39 unit tests for deterministic parser
+│   ├── test_pricing_parser.py              # Unit tests for deterministic parser
 │   ├── test_pricing_regression.py          # Regression tests vs LLM baseline
 │   └── fixtures/                           # HTML fixtures for testing
-└── output/
+└── data/
+    ├── chase_cards.json                    # Raw scraped data
+    ├── chase_cards_clean.json              # Cleaned base card data
     ├── extracted_pricing_extended.json     # All pricing (deterministic)
     ├── extracted_rewards_extended.json     # PDF rewards (LLM)
     ├── extracted_rewards_html_fallback.json # HTML rewards (LLM)
-    ├── unified_card_data.json              # Combined dataset
-    └── raw/                                # Structured JSON & text dumps
+    ├── cards/                              # Merged per-card JSONs
+    └── raw/                               # Structured JSON and text dumps
 ```
 
 ## Extraction Architecture
@@ -108,7 +125,7 @@ WalletSync/
 **Pricing (Deterministic - Path B):**
 - HTML tables → BeautifulSoup → Regex extractors → PricingExtended
 - 100% success rate, $0 cost, <1 second
-- See `PATH_B_COMPLETE.md` for details
+- See `docs/PATH_B_COMPLETE.md` for details
 
 **Rewards (LLM):**
 - PDF/HTML → LLM (Bedrock Claude 3 Haiku) → RewardsExtended

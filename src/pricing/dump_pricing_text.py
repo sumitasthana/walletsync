@@ -200,8 +200,8 @@ def main():
     
     # Setup absolute paths
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(script_dir)
-    output_dir = os.path.join(project_root, 'output')
+    project_root = os.path.dirname(os.path.dirname(script_dir))
+    output_dir = os.path.join(project_root, 'data')
     dump_dir = os.path.join(output_dir, 'raw', 'pricing')
     
     # Ensure dump directory exists

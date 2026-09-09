@@ -4,9 +4,9 @@ import sys
 import os
 
 # Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from schemas import PricingExtended, coerce_null_strings
+from src.common.schemas import PricingExtended, coerce_null_strings
 
 
 def test_coerce_null_strings():
@@ -183,7 +183,7 @@ def test_required_fields_enforced():
 
 def test_freedom_flex_earning_categories():
     """Freedom Flex should have 5 earning categories with correct caps."""
-    from schemas import RewardsExtended, EarningCategory
+    from src.common.schemas import RewardsExtended, EarningCategory
     
     data = {
         'card_id': 'freedom-flex',
@@ -232,7 +232,7 @@ def test_freedom_flex_earning_categories():
 
 def test_marriott_transfer_ratio_direction():
     """Test transfer ratio direction: 3 Marriott = 1 airline mile."""
-    from schemas import TransferPartner
+    from src.common.schemas import TransferPartner
     
     # Marriott → United at 3:1
     partner = TransferPartner(
@@ -247,7 +247,7 @@ def test_marriott_transfer_ratio_direction():
 
 def test_canonical_category_enforcement():
     """Category not in ALLOWED_CATEGORIES should fail post-validation."""
-    from schemas import RewardsExtended, validate_rewards_categories
+    from src.common.schemas import RewardsExtended, validate_rewards_categories
     
     data = {
         'card_id': 'test-card',
@@ -280,7 +280,7 @@ def test_canonical_category_enforcement():
 
 def test_all_other_rate_mandatory():
     """Validation should reject RewardsExtended with no all_other entry."""
-    from schemas import RewardsExtended
+    from src.common.schemas import RewardsExtended
     
     data = {
         'card_id': 'test-card',
@@ -305,7 +305,7 @@ def test_all_other_rate_mandatory():
 
 def test_other_category_requires_notes():
     """Category 'other' without notes should fail post-validation."""
-    from schemas import RewardsExtended, validate_rewards_categories
+    from src.common.schemas import RewardsExtended, validate_rewards_categories
     
     data = {
         'card_id': 'test-card',
