@@ -1,0 +1,187 @@
+# Pricing Extraction Baseline Snapshot
+
+**Created:** 2026-04-21 18:01 UTC-04:00  
+**Purpose:** Regression baseline for Path B deterministic pricing parser
+
+---
+
+## Baseline Files Created
+
+### 1. Full Baseline JSON
+- **File:** `output/baseline_pricing_llm.json`
+- **Size:** Same as `output/extracted_pricing_extended.json`
+- **Cards:** 40 successfully extracted cards
+- **Source:** LLM-based extraction (Claude 3 Haiku via Bedrock)
+
+### 2. Per-Card Fixtures
+- **Directory:** `tests/fixtures/pricing/`
+- **Files:** 40 JSON files (one per card)
+- **Format:** `{card_id}.json`
+- **Purpose:** Unit test fixtures for regression testing
+
+### 3. Markdown Dump Backup
+- **Directory:** `output/raw/pricing_markdown_backup/`
+- **Files:** 41 markdown files
+- **Purpose:** Fallback if HTML parser needs markdown reference
+
+---
+
+## Baseline Coverage
+
+**Total cards in baseline:** 40/41 (98%)
+
+**Excluded from baseline:**
+- Sapphire Reserve for BusinessSM (failed extraction - missing `cash_advance_apr`)
+
+**Included in baseline:**
+- All 40 successfully extracted cards from LLM run
+- Includes both consumer and business cards
+- Includes all card types (cash back, travel, co-branded)
+
+---
+
+## Baseline Quality
+
+### Fields Captured (per PricingExtended schema)
+
+**APR Fields:**
+- `purchase_apr_min`, `purchase_apr_max`
+- `purchase_apr_intro_pct`, `purchase_apr_intro_months`
+- `bt_apr_min`, `bt_apr_max`
+- `bt_apr_intro_pct`, `bt_apr_intro_months`
+- `bt_intro_window_days`
+- `cash_advance_apr`
+- `penalty_apr_max`
+
+**Fee Fields:**
+- `foreign_transaction_fee_pct`
+- `balance_transfer_fee_pct`, `balance_transfer_fee_min_usd`, `balance_transfer_fee_max_usd`
+- `cash_advance_fee_pct`, `cash_advance_fee_min_usd`
+- `late_payment_fee_max_usd`
+- `authorized_user_fee_usd`
+
+**Metadata:**
+- `apr_index` (e.g., "Prime Rate")
+- `purchase_apr_margin`
+- `apr_disclosure_date`
+
+---
+
+## Path B Requirements
+
+The new deterministic parser must:
+
+1. **Match or exceed baseline coverage** - Extract all 40 cards successfully
+2. **Fix the 1 failure** - Extract Sapphire Reserve for Business (missing `cash_advance_apr`)
+3. **Preserve field accuracy** - Numeric values must match baseline ±0.01%
+4. **Maintain schema compliance** - All fields must validate against `PricingExtended`
+5. **Be deterministic** - Same HTML input → same output (no LLM randomness)
+6. **Be unit-testable** - Each field extractor can be tested independently
+
+---
+
+## Regression Test Strategy
+
+### Phase 1: Per-Card Comparison
+For each card in `tests/fixtures/pricing/`:
+1. Run new deterministic parser on same HTML source
+2. Compare output to baseline fixture
+3. Assert all numeric fields match within tolerance
+4. Assert all string fields match exactly
+
+### Phase 2: Full Run Comparison
+1. Run new parser on all 41 cards
+2. Compare `output/extracted_pricing_extended.json` to `output/baseline_pricing_llm.json`
+3. Assert 41/41 success (including Sapphire Reserve for Business)
+4. Assert no regressions on the 40 baseline cards
+
+### Phase 3: Edge Case Validation
+1. Test business cards (different Schumer Box format)
+2. Test intro APR cards (0% for N months)
+3. Test cards with null fees (no foreign transaction fee, etc.)
+4. Test cards with variable APRs (range vs single value)
+
+---
+
+## Sample Baseline Record
+
+```json
+{
+  "card_id": "freedom-flex-a6950e",
+  "card_name": "Chase Freedom Flex®",
+  "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60938.html?iCELL=6ZYD",
+  "purchase_apr_min": 18.24,
+  "purchase_apr_max": 27.74,
+  "purchase_apr_intro_pct": 0.0,
+  "purchase_apr_intro_months": 15,
+  "bt_apr_min": 18.24,
+  "bt_apr_max": 27.74,
+  "bt_apr_intro_pct": 0.0,
+  "bt_apr_intro_months": 15,
+  "bt_intro_window_days": 60,
+  "cash_advance_apr": 28.49,
+  "penalty_apr_max": 29.99,
+  "foreign_transaction_fee_pct": 3.0,
+  "balance_transfer_fee_pct": 5.0,
+  "balance_transfer_fee_min_usd": 5,
+  "balance_transfer_fee_max_usd": null,
+  "cash_advance_fee_pct": 5.0,
+  "cash_advance_fee_min_usd": 10,
+  "late_payment_fee_max_usd": 40,
+  "authorized_user_fee_usd": null,
+  "apr_index": "Prime Rate",
+  "purchase_apr_margin": 13.99,
+  "apr_disclosure_date": null
+}
+```
+
+---
+
+## Known Baseline Limitations
+
+### 1. One Failed Card
+- Sapphire Reserve for BusinessSM missing `cash_advance_apr`
+- Path B must fix this
+
+### 2. LLM Extraction Artifacts
+- Some fields may have been inferred (e.g., `purchase_apr_margin` calculated from APR - Prime Rate)
+- Path B should extract directly from table cells, not infer
+
+### 3. No Validation of Source Accuracy
+- Baseline assumes LLM extracted correctly
+- Path B should validate against actual HTML table structure
+
+---
+
+## Files to Preserve
+
+**Do NOT delete or modify:**
+- `output/baseline_pricing_llm.json` - Master baseline
+- `tests/fixtures/pricing/*.json` - Per-card fixtures
+- `output/raw/pricing_markdown_backup/*.md` - Markdown dump backup
+
+**Safe to modify:**
+- `output/extracted_pricing_extended.json` - Will be regenerated by Path B
+- `output/raw/pricing/*.md` - Will be replaced with HTML dumps
+
+---
+
+## Next Steps
+
+1. ✅ Baseline snapshot complete
+2. ⏭️ Write deterministic HTML table parser
+3. ⏭️ Create unit tests using fixtures
+4. ⏭️ Run regression tests
+5. ⏭️ Fix Sapphire Reserve for Business
+6. ⏭️ Validate 41/41 coverage
+
+---
+
+**Status:** ✅ Baseline snapshot complete and verified
+
+**Verification:**
+- ✅ 40 fixtures in `tests/fixtures/pricing/`
+- ✅ `output/baseline_pricing_llm.json` exists and matches source
+- ✅ 41 markdown dumps backed up to `output/raw/pricing_markdown_backup/`
+
+**Ready for Path B implementation.**

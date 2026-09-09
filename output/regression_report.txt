@@ -1,0 +1,120 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.2, pytest-9.0.2, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: C:\LangChain\WalletSync
+plugins: anyio-3.7.1, langsmith-0.7.7, cov-7.0.0
+collecting ... collected 42 items
+
+tests/test_pricing_regression.py::test_no_regression[aircanada-aeroplan-78c7af] PASSED [  2%]
+tests/test_pricing_regression.py::test_no_regression[avios-aer-lingus-8e7765] PASSED [  4%]
+tests/test_pricing_regression.py::test_no_regression[avios-british-airways-4d38be] PASSED [  7%]
+tests/test_pricing_regression.py::test_no_regression[avios-iberia-de8b4a] PASSED [  9%]
+tests/test_pricing_regression.py::test_no_regression[balance-transfer-credit-cards-slate-927bad] PASSED [ 11%]
+tests/test_pricing_regression.py::test_no_regression[cash-back-credit-cards-amazon-prime-rewards-be2ce5] PASSED [ 14%]
+tests/test_pricing_regression.py::test_no_regression[cash-back-credit-cards-amazon-rewards-1a3f0c] PASSED [ 16%]
+tests/test_pricing_regression.py::test_no_regression[cash-back-credit-cards-doordash-fd9eef] PASSED [ 19%]
+tests/test_pricing_regression.py::test_no_regression[cash-back-credit-cards-instacart-637ff6] FAILED [ 21%]
+tests/test_pricing_regression.py::test_no_regression[disney-inspire-474a37] FAILED [ 23%]
+tests/test_pricing_regression.py::test_no_regression[disney-premier-4df7b1] FAILED [ 26%]
+tests/test_pricing_regression.py::test_no_regression[disney-rewards-fa5408] FAILED [ 28%]
+tests/test_pricing_regression.py::test_no_regression[freedom-flex-a6950e] PASSED [ 30%]
+tests/test_pricing_regression.py::test_no_regression[freedom-rise-f1f176] PASSED [ 33%]
+tests/test_pricing_regression.py::test_no_regression[freedom-unlimited-3f087d] PASSED [ 35%]
+tests/test_pricing_regression.py::test_no_regression[ihg-business-premier-468b6d] PASSED [ 38%]
+tests/test_pricing_regression.py::test_no_regression[ihg-rewards-club-premier-83e78a] PASSED [ 40%]
+tests/test_pricing_regression.py::test_no_regression[ihg-rewards-club-traveler-0de400] PASSED [ 42%]
+tests/test_pricing_regression.py::test_no_regression[ink-business-preferred-787063] PASSED [ 45%]
+tests/test_pricing_regression.py::test_no_regression[ink-cash-d37349] PASSED [ 47%]
+tests/test_pricing_regression.py::test_no_regression[ink-premier-50fdd7] PASSED [ 50%]
+tests/test_pricing_regression.py::test_no_regression[ink-unlimited-8e2880] FAILED [ 52%]
+tests/test_pricing_regression.py::test_no_regression[marriott-bonvoy-bold-e81fcd] PASSED [ 54%]
+tests/test_pricing_regression.py::test_no_regression[marriott-bonvoy-boundless-58772b] PASSED [ 57%]
+tests/test_pricing_regression.py::test_no_regression[marriott-bonvoy-bountiful-3127ef] PASSED [ 59%]
+tests/test_pricing_regression.py::test_no_regression[sapphire-preferred-629c0c] PASSED [ 61%]
+tests/test_pricing_regression.py::test_no_regression[sapphire-reserve-4f5bd8] PASSED [ 64%]
+tests/test_pricing_regression.py::test_no_regression[southwest-performance-business-e571e5] PASSED [ 66%]
+tests/test_pricing_regression.py::test_no_regression[southwest-plus-205636] PASSED [ 69%]
+tests/test_pricing_regression.py::test_no_regression[southwest-premier-business-b9416c] PASSED [ 71%]
+tests/test_pricing_regression.py::test_no_regression[southwest-premier-f55175] PASSED [ 73%]
+tests/test_pricing_regression.py::test_no_regression[southwest-priority-faced8] PASSED [ 76%]
+tests/test_pricing_regression.py::test_no_regression[travel-credit-cards-world-of-hyatt-credit-card-42b091] PASSED [ 78%]
+tests/test_pricing_regression.py::test_no_regression[united-club-infinite-6aa061] PASSED [ 80%]
+tests/test_pricing_regression.py::test_no_regression[united-united-business-card-af84c5] PASSED [ 83%]
+tests/test_pricing_regression.py::test_no_regression[united-united-club-business-0e28a1] PASSED [ 85%]
+tests/test_pricing_regression.py::test_no_regression[united-united-explorer-c88d47] PASSED [ 88%]
+tests/test_pricing_regression.py::test_no_regression[united-united-gateway-1e791e] FAILED [ 90%]
+tests/test_pricing_regression.py::test_no_regression[united-united-quest-8bce46] PASSED [ 92%]
+tests/test_pricing_regression.py::test_no_regression[world-of-hyatt-hyatt-business-card-d13d76] PASSED [ 95%]
+tests/test_pricing_regression.py::test_new_card_extracted PASSED         [ 97%]
+tests/test_pricing_regression.py::test_total_coverage PASSED             [100%]
+
+================================== FAILURES ===================================
+_________ test_no_regression[cash-back-credit-cards-instacart-637ff6] _________
+tests\test_pricing_regression.py:100: in test_no_regression
+    pytest.fail(msg)
+E   Failed: cash-back-credit-cards-instacart-637ff6 REGRESSIONS:
+E     - bt_apr_intro_pct: LLM had 0.0, deterministic returned None
+E     - bt_apr_intro_months: LLM had 15, deterministic returned None
+E     - bt_intro_window_days: LLM had 60, deterministic returned None
+---------------------------- Captured stdout call -----------------------------
+
+cash-back-credit-cards-instacart-637ff6 DIVERGENCES (manual review needed):
+  - purchase_apr_margin: LLM=13.99 deterministic=11.49
+__________________ test_no_regression[disney-inspire-474a37] __________________
+tests\test_pricing_regression.py:100: in test_no_regression
+    pytest.fail(msg)
+E   Failed: disney-inspire-474a37 REGRESSIONS:
+E     - purchase_apr_intro_pct: LLM had 0.0, deterministic returned None
+E     - purchase_apr_intro_months: LLM had 6, deterministic returned None
+---------------------------- Captured stdout call -----------------------------
+
+disney-inspire-474a37 DIVERGENCES (manual review needed):
+  - purchase_apr_margin: LLM=13.99 deterministic=11.49
+__________________ test_no_regression[disney-premier-4df7b1] __________________
+tests\test_pricing_regression.py:100: in test_no_regression
+    pytest.fail(msg)
+E   Failed: disney-premier-4df7b1 REGRESSIONS:
+E     - purchase_apr_intro_pct: LLM had 0.0, deterministic returned None
+E     - purchase_apr_intro_months: LLM had 6, deterministic returned None
+---------------------------- Captured stdout call -----------------------------
+
+disney-premier-4df7b1 IMPROVEMENTS:
+  + purchase_apr_margin: deterministic=11.49 (LLM had None)
+__________________ test_no_regression[disney-rewards-fa5408] __________________
+tests\test_pricing_regression.py:100: in test_no_regression
+    pytest.fail(msg)
+E   Failed: disney-rewards-fa5408 REGRESSIONS:
+E     - purchase_apr_intro_pct: LLM had 0.0, deterministic returned None
+E     - purchase_apr_intro_months: LLM had 6, deterministic returned None
+---------------------------- Captured stdout call -----------------------------
+
+disney-rewards-fa5408 DIVERGENCES (manual review needed):
+  - purchase_apr_margin: LLM=13.99 deterministic=11.49
+__________________ test_no_regression[ink-unlimited-8e2880] ___________________
+tests\test_pricing_regression.py:100: in test_no_regression
+    pytest.fail(msg)
+E   Failed: ink-unlimited-8e2880 REGRESSIONS:
+E     - bt_apr_intro_pct: LLM had 0.0, deterministic returned None
+E     - bt_apr_intro_months: LLM had 12, deterministic returned None
+---------------------------- Captured stdout call -----------------------------
+
+ink-unlimited-8e2880 DIVERGENCES (manual review needed):
+  - purchase_apr_margin: LLM=13.99 deterministic=9.99
+______________ test_no_regression[united-united-gateway-1e791e] _______________
+tests\test_pricing_regression.py:100: in test_no_regression
+    pytest.fail(msg)
+E   Failed: united-united-gateway-1e791e REGRESSIONS:
+E     - bt_apr_intro_pct: LLM had 0.0, deterministic returned None
+E     - bt_apr_intro_months: LLM had 12, deterministic returned None
+---------------------------- Captured stdout call -----------------------------
+
+united-united-gateway-1e791e IMPROVEMENTS:
+  + purchase_apr_margin: deterministic=12.99 (LLM had None)
+=========================== short test summary info ===========================
+FAILED tests/test_pricing_regression.py::test_no_regression[cash-back-credit-cards-instacart-637ff6]
+FAILED tests/test_pricing_regression.py::test_no_regression[disney-inspire-474a37]
+FAILED tests/test_pricing_regression.py::test_no_regression[disney-premier-4df7b1]
+FAILED tests/test_pricing_regression.py::test_no_regression[disney-rewards-fa5408]
+FAILED tests/test_pricing_regression.py::test_no_regression[ink-unlimited-8e2880]
+FAILED tests/test_pricing_regression.py::test_no_regression[united-united-gateway-1e791e]
+======================== 6 failed, 36 passed in 0.42s =========================
