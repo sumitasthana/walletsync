@@ -1,17 +1,20 @@
 """Clean and transform scraped Chase card data to structured schema."""
 
+import hashlib
 import json
+import os
 import re
 from typing import Optional
+from urllib.parse import urlparse
 
 
-def extract_annual_fee(fee_text: Optional[str]) -> tuple[int, bool]:
+def extract_annual_fee(fee_text: Optional[str]) -> tuple[Optional[int], bool]:
     """
     Extract annual fee amount and whether it's waived first year.
     Returns: (annual_fee_usd, waived_first_year)
     """
     if not fee_text:
-        return (0, False)
+        return (None, False)
     
     fee_text = fee_text.upper()
     
@@ -98,33 +101,87 @@ def extract_sign_up_bonus(offer_text: Optional[str]) -> tuple[Optional[int], Opt
 
 
 def extract_base_earn_rate(earning_text: Optional[str]) -> Optional[float]:
-    """Extract the base earning rate for non-categorized spend."""
+    """Extract ONLY the base rate for generic/non-categorized spend."""
     if not earning_text:
         return None
     
     text_lower = earning_text.lower()
     
-    # Pattern 1: "unlimited 1.5% cash back" or "earn 1.5% cash back"
-    match = re.search(r'(?:unlimited|earn)\s+(\d+(?:\.\d+)?)\s*%', text_lower)
+    # Look for explicit "X% on all other purchases" pattern (most specific)
+    # Pattern 1: "and X% on all other card purchases" (after category rates)
+    match = re.search(r'and\s+(\d+(?:\.\d+)?)\s*%\s+on\s+all\s+other\s+(?:card\s+)?purchases', text_lower)
     if match:
         return float(match.group(1))
     
-    # Pattern 2: "1% on all other purchases"
-    match = re.search(r'(\d+(?:\.\d+)?)\s*%\s+(?:cash back\s+)?on\s+all\s+(?:other\s+)?purchases', text_lower)
+    # Pattern 2: "X% cash back on all other purchases" (standalone)
+    match = re.search(r'(\d+(?:\.\d+)?)\s*%\s+cash back\s+on\s+all\s+other\s+purchases', text_lower)
     if match:
         return float(match.group(1))
     
-    # Pattern 3: "Earn 1 point/mile for every $1" or "1x on all purchases"
-    match = re.search(r'(?:earn\s+)?(\d+(?:\.\d+)?)\s*(?:x|point|mile|avios)(?:s)?\s+(?:for\s+every\s+\$1|on\s+all)', text_lower)
+    # Look for "unlimited X% cash back on all purchases" (no category restrictions)
+    match = re.search(r'unlimited\s+(\d+(?:\.\d+)?)\s*%\s+cash back\s+(?:or more\s+)?on\s+all\s+purchases', text_lower)
     if match:
         return float(match.group(1))
     
-    # Pattern 4: "1.5% cash back on all purchases"
-    match = re.search(r'(\d+(?:\.\d+)?)\s*%.*?on\s+all\s+purchases', text_lower)
+    # Look for "earn X% cash back on all purchases" (without unlimited)
+    match = re.search(r'earn\s+(\d+(?:\.\d+)?)\s*%\s+cash back\s+on\s+all\s+purchases', text_lower)
+    if match:
+        return float(match.group(1))
+    
+    # Look for "unlimited X% back on all other purchases"
+    match = re.search(r'unlimited\s+(\d+(?:\.\d+)?)\s*%\s+back\s+on\s+all\s+other\s+purchases', text_lower)
+    if match:
+        return float(match.group(1))
+    
+    # Look for "X% ... on all other card purchases" (with any text in between)
+    match = re.search(r'(?:and\s+)?(\d+(?:\.\d+)?)\s*%\s+.{0,50}?\s+on\s+all\s+other\s+(?:card\s+)?purchases', text_lower)
+    if match:
+        # Make sure we didn't match a category rate by checking for category keywords before the match
+        match_start = match.start()
+        preceding_text = text_lower[max(0, match_start-100):match_start]
+        if not any(word in preceding_text for word in ['at amazon', 'at disney', 'at walmart', 'directly at']):
+            return float(match.group(1))
+    
+    # Look for "1 point/mile for every $1 on all other"
+    match = re.search(r'(\d+(?:\.\d+)?)\s+(?:point|mile|avios)s?\s+for\s+every\s+\$1.*?on\s+all\s+other', text_lower)
     if match:
         return float(match.group(1))
     
     return None
+
+
+def generate_card_id(details_url: Optional[str]) -> str:
+    """Generate unique card_id from details_url."""
+    if not details_url:
+        return ""
+    
+    # Extract path after /credit-cards/ or /cash-back-credit-cards/ etc.
+    parsed = urlparse(details_url)
+    path = parsed.path
+    
+    # Get meaningful segments (exclude 'credit-cards' but keep category like 'cash-back')
+    segments = [s for s in path.split('/') if s]
+    
+    # Filter out generic terms but keep meaningful ones
+    meaningful = []
+    skip_terms = {'credit-cards', 'rewards-credit-cards'}
+    for seg in segments:
+        if seg not in skip_terms:
+            meaningful.append(seg)
+    
+    if meaningful:
+        # Use last 2 segments for readability
+        if len(meaningful) >= 2:
+            base_id = '-'.join(meaningful[-2:]).lower().strip()
+        else:
+            base_id = meaningful[-1].lower().strip()
+        
+        # Add short hash suffix for guaranteed uniqueness
+        url_hash = hashlib.md5(details_url.encode()).hexdigest()[:6]
+        card_id = f"{base_id}-{url_hash}"
+        return card_id
+    
+    return ""
 
 
 def clean_card_data(raw_card: dict) -> dict:
@@ -143,6 +200,7 @@ def clean_card_data(raw_card: dict) -> dict:
     base_rate = extract_base_earn_rate(raw_card.get('earning_rates'))
     
     return {
+        'card_id': generate_card_id(raw_card.get('details_url')),
         'card_name': raw_card.get('card_name', '').strip(),
         'annual_fee_usd': annual_fee,
         'waived_first_year': waived,
@@ -157,15 +215,42 @@ def clean_card_data(raw_card: dict) -> dict:
 
 
 def main():
+    # Setup absolute paths
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+    output_dir = os.path.join(project_root, 'output')
+    
     # Load raw data
-    with open('output/chase_cards.json', 'r', encoding='utf-8') as f:
+    input_path = os.path.join(output_dir, 'chase_cards.json')
+    with open(input_path, 'r', encoding='utf-8') as f:
         raw_cards = json.load(f)
+    
+    # Deduplicate by details_url (fallback to card_name)
+    from collections import defaultdict
+    groups = defaultdict(list)
+    for card in raw_cards:
+        key = card.get('details_url') or card.get('card_name')
+        if key:
+            groups[key].append(card)
+    
+    # Keep entry with most non-null fields
+    def count_non_null(card):
+        return sum(1 for v in card.values() if v)
+    
+    deduped = []
+    for key, cards in groups.items():
+        best = max(cards, key=count_non_null)
+        # Drop if card_name is null or all critical fields are null
+        if best.get('card_name') and any(best.get(f) for f in ['annual_fee', 'apr_info', 'earning_rates', 'offer_threshold']):
+            deduped.append(best)
+    
+    raw_cards = deduped
     
     # Clean each card
     cleaned_cards = [clean_card_data(card) for card in raw_cards]
     
     # Save cleaned data
-    output_path = 'output/chase_cards_clean.json'
+    output_path = os.path.join(output_dir, 'chase_cards_clean.json')
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(cleaned_cards, f, indent=2, ensure_ascii=False)
     

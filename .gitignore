@@ -4,15 +4,21 @@
 # Python
 __pycache__/
 *.py[cod]
+*.pyc
+*.pyo
+*.pyd
 *$py.class
 *.so
-.Python
-env/
-venv/
-ENV/
+*.egg
 *.egg-info/
 dist/
 build/
+.pytest_cache/
+
+# Environment
+venv/
+env/
+ENV/
 
 # IDE
 .vscode/
@@ -20,9 +26,18 @@ build/
 *.swp
 *.swo
 
+# Output (keep structure but ignore data)
+output/cards/*.json
+output/raw/pricing/*.md
+output/raw/rewards/*.txt
+output/*.json
+!output/.gitkeep
+
 # Temporary files
 *.log
 *.tmp
+*.bak
+*~
 page_dump.html
 
 # Playwright

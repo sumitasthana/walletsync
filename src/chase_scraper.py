@@ -181,13 +181,33 @@ def extract_card(card_el):
 
     # rewards_agreement_url
     try:
-        ra_el = card_el.query_selector("a:has-text('Rewards Program Agreement'), a:has-text('Rewards Agreement'), a[href*='reward']")
+        # Look for RPA (Rewards Program Agreement) PDFs only
+        # Pattern: https://asset.chase.com/.../RPA####_Web.pdf
+        # Try multiple selectors
+        ra_el = card_el.query_selector(
+            "a:has-text('Rewards Program Agreement'), "
+            "a:has-text('Rewards Agreement')"
+        )
+        
+        # If not found by text, try href pattern
+        if not ra_el:
+            ra_el = card_el.query_selector("a[href*='RPA'][href$='.pdf']")
+        
         if ra_el:
             href = _href(ra_el)
-            if href and ('reward' in href.lower() or 'RPA' in href):
-                data["rewards_agreement_url"] = href
-    except Exception:
-        pass
+            # Validate: must be http URL ending in .pdf with 'RPA' in path
+            if href and href.startswith('http') and '.pdf' in href.lower() and 'RPA' in href:
+                # Reject Benefits Guide PDFs (BGC*.pdf)
+                if 'BGC' not in href:
+                    data["rewards_agreement_url"] = href
+                else:
+                    log.warning(f"  Rejected Benefits Guide PDF for {data.get('card_name', 'unknown')}")
+            else:
+                log.warning(f"  No valid RPA PDF found for {data.get('card_name', 'unknown')}")
+        else:
+            log.warning(f"  No rewards agreement anchor found for {data.get('card_name', 'unknown')}")
+    except Exception as e:
+        log.warning(f"  Error finding rewards URL for {data.get('card_name', 'unknown')}: {e}")
 
     return data
 

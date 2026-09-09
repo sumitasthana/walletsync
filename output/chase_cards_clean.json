@@ -1,5 +1,6 @@
 [
   {
+    "card_id": "freedom-unlimited-3f087d",
     "card_name": "Chase Freedom Unlimited®",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -12,6 +13,7 @@
     "rewards_agreement_url": "https://www.chase.com/freedomunlimited/rewardsagreement?iCELL=6ZYD"
   },
   {
+    "card_id": "freedom-flex-a6950e",
     "card_name": "Chase Freedom Flex®",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -19,11 +21,12 @@
     "sign_up_bonus_value": 200,
     "sign_up_bonus_spend_req": 500,
     "sign_up_bonus_months": 3,
-    "base_earn_rate": 5.0,
+    "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60938.html?iCELL=6ZYD",
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0534_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "freedom-rise-f1f176",
     "card_name": "Chase Freedom Rise®",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -36,6 +39,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0540_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "sapphire-reserve-4f5bd8",
     "card_name": "Chase Sapphire Reserve®",
     "annual_fee_usd": 795,
     "waived_first_year": false,
@@ -48,6 +52,7 @@
     "rewards_agreement_url": "/rewards-credit-cards/sapphire/reserve?iCELL=6ZYD"
   },
   {
+    "card_id": "sapphire-preferred-629c0c",
     "card_name": "Chase Sapphire Preferred®",
     "annual_fee_usd": 95,
     "waived_first_year": false,
@@ -60,6 +65,7 @@
     "rewards_agreement_url": "/rewards-credit-cards/sapphire/preferred?iCELL=6ZYD"
   },
   {
+    "card_id": "balance-transfer-credit-cards-slate-927bad",
     "card_name": "Slate®",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -72,6 +78,7 @@
     "rewards_agreement_url": null
   },
   {
+    "card_id": "united-united-explorer-c88d47",
     "card_name": "UnitedSM Explorer Card",
     "annual_fee_usd": 150,
     "waived_first_year": true,
@@ -84,6 +91,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0480_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "united-united-quest-8bce46",
     "card_name": "United QuestSM Card",
     "annual_fee_usd": 350,
     "waived_first_year": false,
@@ -96,6 +104,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0278_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "united-united-gateway-1e791e",
     "card_name": "United GatewaySM Card",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -108,6 +117,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0261_0262_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "united-club-infinite-6aa061",
     "card_name": "United ClubSM Card",
     "annual_fee_usd": 695,
     "waived_first_year": false,
@@ -120,6 +130,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0437_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "southwest-plus-205636",
     "card_name": "Southwest Rapid Rewards® Plus",
     "annual_fee_usd": 99,
     "waived_first_year": false,
@@ -132,6 +143,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0458_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "southwest-priority-faced8",
     "card_name": "Southwest Rapid Rewards® Priority",
     "annual_fee_usd": 229,
     "waived_first_year": false,
@@ -144,6 +156,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0530_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "southwest-premier-f55175",
     "card_name": "Southwest Rapid Rewards® Premier",
     "annual_fee_usd": 149,
     "waived_first_year": false,
@@ -156,6 +169,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0459_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "marriott-bonvoy-boundless-58772b",
     "card_name": "Marriott Bonvoy Boundless®",
     "annual_fee_usd": 95,
     "waived_first_year": false,
@@ -168,6 +182,7 @@
     "rewards_agreement_url": "https://www.chase.com/marriottboundlesscard/rewardsagreement?iCELL=6ZYD"
   },
   {
+    "card_id": "marriott-bonvoy-bountiful-3127ef",
     "card_name": "Marriott Bonvoy Bountiful®",
     "annual_fee_usd": 250,
     "waived_first_year": false,
@@ -180,6 +195,7 @@
     "rewards_agreement_url": "https://www.chase.com/marriottbountifulcard/rewardsagreement?iCELL=6ZYD"
   },
   {
+    "card_id": "marriott-bonvoy-bold-e81fcd",
     "card_name": "Marriott Bonvoy Bold®",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -192,6 +208,7 @@
     "rewards_agreement_url": "https://www.chase.com/marriottboldcard/rewardsagreement?iCELL=6ZYD"
   },
   {
+    "card_id": "ihg-rewards-club-premier-83e78a",
     "card_name": "IHG One Rewards Premier",
     "annual_fee_usd": 99,
     "waived_first_year": false,
@@ -204,6 +221,7 @@
     "rewards_agreement_url": "/travel-credit-cards/ihg-rewards-club/premier?iCELL=6ZYD"
   },
   {
+    "card_id": "ihg-rewards-club-traveler-0de400",
     "card_name": "IHG One Rewards Traveler",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -216,6 +234,7 @@
     "rewards_agreement_url": "/travel-credit-cards/ihg-rewards-club/traveler?iCELL=6ZYD"
   },
   {
+    "card_id": "travel-credit-cards-world-of-hyatt-credit-card-42b091",
     "card_name": "World of Hyatt",
     "annual_fee_usd": 95,
     "waived_first_year": false,
@@ -228,6 +247,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0456_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "disney-inspire-474a37",
     "card_name": "Disney® Inspire Visa® Card",
     "annual_fee_usd": 149,
     "waived_first_year": false,
@@ -235,11 +255,12 @@
     "sign_up_bonus_value": null,
     "sign_up_bonus_spend_req": 1000,
     "sign_up_bonus_months": 3,
-    "base_earn_rate": 10.0,
+    "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63173.html?iCELL=6ZYD",
     "rewards_agreement_url": "/rewards-credit-cards/disney/inspire?iCELL=6ZYD"
   },
   {
+    "card_id": "disney-premier-4df7b1",
     "card_name": "Disney® Premier Visa® Card",
     "annual_fee_usd": 49,
     "waived_first_year": false,
@@ -247,11 +268,12 @@
     "sign_up_bonus_value": null,
     "sign_up_bonus_spend_req": 500,
     "sign_up_bonus_months": 3,
-    "base_earn_rate": 5.0,
+    "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63172.html?iCELL=6ZYD",
     "rewards_agreement_url": "/rewards-credit-cards/disney/premier?iCELL=6ZYD"
   },
   {
+    "card_id": "disney-rewards-fa5408",
     "card_name": "Disney® Visa® Card",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -264,6 +286,7 @@
     "rewards_agreement_url": "/rewards-credit-cards/disney/rewards?iCELL=6ZYD"
   },
   {
+    "card_id": "aircanada-aeroplan-78c7af",
     "card_name": "Aeroplan® Card",
     "annual_fee_usd": 95,
     "waived_first_year": false,
@@ -276,6 +299,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0538_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "avios-british-airways-4d38be",
     "card_name": "British Airways Visa Signature®",
     "annual_fee_usd": 95,
     "waived_first_year": false,
@@ -288,6 +312,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0508_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "avios-aer-lingus-8e7765",
     "card_name": "Aer Lingus Visa Signature®",
     "annual_fee_usd": 95,
     "waived_first_year": false,
@@ -300,6 +325,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0526_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "avios-iberia-de8b4a",
     "card_name": "Iberia Visa Signature®",
     "annual_fee_usd": 95,
     "waived_first_year": false,
@@ -312,6 +338,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0527_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "cash-back-credit-cards-amazon-prime-rewards-be2ce5",
     "card_name": "Prime Visa",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -319,11 +346,12 @@
     "sign_up_bonus_value": null,
     "sign_up_bonus_spend_req": null,
     "sign_up_bonus_months": null,
-    "base_earn_rate": 5.0,
+    "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC59329.html?iCELL=6ZYD",
     "rewards_agreement_url": "/cash-back-credit-cards/amazon-prime-rewards?iCELL=6ZYD"
   },
   {
+    "card_id": "cash-back-credit-cards-amazon-rewards-1a3f0c",
     "card_name": "Amazon Visa",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -331,11 +359,12 @@
     "sign_up_bonus_value": null,
     "sign_up_bonus_spend_req": null,
     "sign_up_bonus_months": null,
-    "base_earn_rate": 3.0,
+    "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC59318.html?iCELL=6ZYD",
     "rewards_agreement_url": "/cash-back-credit-cards/amazon-rewards?iCELL=6ZYD"
   },
   {
+    "card_id": "cash-back-credit-cards-doordash-fd9eef",
     "card_name": "DoorDash Rewards Mastercard®",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -343,11 +372,12 @@
     "sign_up_bonus_value": null,
     "sign_up_bonus_spend_req": null,
     "sign_up_bonus_months": null,
-    "base_earn_rate": 4.0,
+    "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61934.html?iCELL=6ZYD",
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0542_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "cash-back-credit-cards-instacart-637ff6",
     "card_name": "Instacart Mastercard®",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -355,11 +385,12 @@
     "sign_up_bonus_value": null,
     "sign_up_bonus_spend_req": null,
     "sign_up_bonus_months": null,
-    "base_earn_rate": 5.0,
+    "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60680.html?iCELL=6ZYD",
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0539_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "sapphire-reserve-5a3e5c",
     "card_name": "Sapphire Reserve for BusinessSM",
     "annual_fee_usd": 795,
     "waived_first_year": false,
@@ -372,6 +403,7 @@
     "rewards_agreement_url": "https://www.chase.com/reserveforbusiness/rewardsagreement?iCELL=6ZYD"
   },
   {
+    "card_id": "ink-unlimited-8e2880",
     "card_name": "Ink Business Unlimited®",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -379,11 +411,12 @@
     "sign_up_bonus_value": null,
     "sign_up_bonus_spend_req": 6000,
     "sign_up_bonus_months": 3,
-    "base_earn_rate": 1.5,
+    "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63749.html?iCELL=6ZYD",
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0516_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "ink-business-preferred-787063",
     "card_name": "Ink Business Preferred®",
     "annual_fee_usd": 95,
     "waived_first_year": false,
@@ -396,6 +429,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0514_0515_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "ink-cash-d37349",
     "card_name": "Ink Business Cash®",
     "annual_fee_usd": 0,
     "waived_first_year": false,
@@ -403,11 +437,12 @@
     "sign_up_bonus_value": 750,
     "sign_up_bonus_spend_req": 6000,
     "sign_up_bonus_months": 3,
-    "base_earn_rate": 5.0,
+    "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63827.html?iCELL=6ZYD",
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0475_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "ink-premier-50fdd7",
     "card_name": "Ink Business Premier®",
     "annual_fee_usd": 195,
     "waived_first_year": false,
@@ -415,11 +450,12 @@
     "sign_up_bonus_value": 1000,
     "sign_up_bonus_spend_req": 10000,
     "sign_up_bonus_months": 3,
-    "base_earn_rate": 2.5,
+    "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63834.html?iCELL=6ZYD",
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0535_0536_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "united-united-business-card-af84c5",
     "card_name": "UnitedSM Business Card",
     "annual_fee_usd": 150,
     "waived_first_year": false,
@@ -432,6 +468,7 @@
     "rewards_agreement_url": "https://www.chase.com/unitedbusinesscard/rewardsagreement?iCELL=6ZYD"
   },
   {
+    "card_id": "united-united-club-business-0e28a1",
     "card_name": "United ClubSM Business Card",
     "annual_fee_usd": 695,
     "waived_first_year": false,
@@ -444,6 +481,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0479_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "southwest-performance-business-e571e5",
     "card_name": "Southwest Rapid Rewards® Performance Business",
     "annual_fee_usd": 299,
     "waived_first_year": false,
@@ -456,6 +494,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0531_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "southwest-premier-business-b9416c",
     "card_name": "Southwest Rapid Rewards® Premier Business",
     "annual_fee_usd": 149,
     "waived_first_year": false,
@@ -468,6 +507,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0461_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "ihg-business-premier-468b6d",
     "card_name": "IHG One Rewards Premier Business",
     "annual_fee_usd": 99,
     "waived_first_year": false,
@@ -480,6 +520,7 @@
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0314_Web.pdf?iCELL=6ZYD"
   },
   {
+    "card_id": "world-of-hyatt-hyatt-business-card-d13d76",
     "card_name": "World of Hyatt Business",
     "annual_fee_usd": 199,
     "waived_first_year": false,
@@ -490,497 +531,5 @@
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64092.html?iCELL=6ZYD",
     "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0537_Web.pdf?iCELL=6ZYD"
-  },
-  {
-    "card_name": "Chase Freedom Unlimited®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Chase Freedom Flex®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Chase Freedom Rise®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Cash Back",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": 1.5,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Chase Sapphire Reserve®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": "/rewards-credit-cards/sapphire/reserve?iCELL=6ZYD"
-  },
-  {
-    "card_name": "Chase Sapphire Preferred®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": "/rewards-credit-cards/sapphire/preferred?iCELL=6ZYD"
-  },
-  {
-    "card_name": "Slate®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "UnitedSM Explorer Card",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "United QuestSM Card",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "United GatewaySM Card",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "United ClubSM Card",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Southwest Rapid Rewards® Plus",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Southwest Rapid Rewards® Priority",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Southwest Rapid Rewards® Premier",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Marriott Bonvoy Boundless®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Marriott Bonvoy Bountiful®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Marriott Bonvoy Bold®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "IHG One Rewards Premier",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": "/travel-credit-cards/ihg-rewards-club/premier?iCELL=6ZYD"
-  },
-  {
-    "card_name": "IHG One Rewards Traveler",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": "/travel-credit-cards/ihg-rewards-club/traveler?iCELL=6ZYD"
-  },
-  {
-    "card_name": "World of Hyatt",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Disney® Inspire Visa® Card",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": "/rewards-credit-cards/disney/inspire?iCELL=6ZYD"
-  },
-  {
-    "card_name": "Disney® Premier Visa® Card",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": "/rewards-credit-cards/disney/premier?iCELL=6ZYD"
-  },
-  {
-    "card_name": "Disney® Visa® Card",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": "/rewards-credit-cards/disney/rewards?iCELL=6ZYD"
-  },
-  {
-    "card_name": "Aeroplan® Card",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "British Airways Visa Signature®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Aer Lingus Visa Signature®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Iberia Visa Signature®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Prime Visa",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": "/cash-back-credit-cards/amazon-prime-rewards?iCELL=6ZYD"
-  },
-  {
-    "card_name": "Amazon Visa",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": "/cash-back-credit-cards/amazon-rewards?iCELL=6ZYD"
-  },
-  {
-    "card_name": "DoorDash Rewards Mastercard®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Instacart Mastercard®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Sapphire Reserve for BusinessSM",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Ink Business Unlimited®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Ink Business Preferred®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Ink Business Cash®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Ink Business Premier®",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "UnitedSM Business Card",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "United ClubSM Business Card",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Southwest Rapid Rewards® Performance Business",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "Southwest Rapid Rewards® Premier Business",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "IHG One Rewards Premier Business",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
-  },
-  {
-    "card_name": "World of Hyatt Business",
-    "annual_fee_usd": 0,
-    "waived_first_year": false,
-    "reward_currency": "Unknown",
-    "sign_up_bonus_value": null,
-    "sign_up_bonus_spend_req": null,
-    "sign_up_bonus_months": null,
-    "base_earn_rate": null,
-    "pricing_terms_url": null,
-    "rewards_agreement_url": null
   }
 ]
