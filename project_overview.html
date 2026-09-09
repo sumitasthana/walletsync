@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WalletSync - Project Overview</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --panel: #1e293b;
+    --panel-2: #273449;
+    --border: #334155;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --accent-2: #818cf8;
+    --good: #34d399;
+    --warn: #fbbf24;
+    --bad: #f87171;
+    --code-bg: #0b1220;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    line-height: 1.65;
+  }
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+  }
+  header.hero {
+    padding: 56px 32px 48px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 40px;
+  }
+  header.hero .badge {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  header.hero h1 {
+    margin: 0 0 14px;
+    font-size: 38px;
+    letter-spacing: -0.02em;
+  }
+  header.hero p.lead {
+    margin: 0;
+    color: var(--muted);
+    font-size: 18px;
+    max-width: 720px;
+  }
+  section {
+    margin-bottom: 44px;
+  }
+  h2 {
+    font-size: 24px;
+    margin: 0 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 28px 0 10px;
+    color: var(--accent);
+  }
+  p, li { color: var(--text); }
+  .muted { color: var(--muted); }
+  a { color: var(--accent); }
+  ul, ol { padding-left: 22px; }
+  li { margin-bottom: 8px; }
+  code, pre {
+    font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+  }
+  :not(pre) > code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 5px;
+    font-size: 13px;
+    color: var(--accent-2);
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  .grid {
+    display: grid;
+    gap: 18px;
+  }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .card h3 { margin-top: 0; }
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+  }
+  .stat .num {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+  .stat .label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+    display: block;
+  }
+  .pill {
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .pill.good { color: #052e1c; background: var(--good); }
+  .pill.warn { color: #3a2a00; background: var(--warn); }
+  .pill.bad  { color: #3b0a0a; background: var(--bad); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  th { color: var(--muted); font-weight: 600; }
+  .flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 10px;
+    margin: 18px 0;
+  }
+  .flow .step {
+    flex: 1 1 140px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    position: relative;
+  }
+  .flow .step .n {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .flow .arrow {
+    display: flex;
+    align-items: center;
+    color: var(--muted);
+    font-size: 20px;
+  }
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--panel);
+    padding: 16px 18px;
+    border-radius: 0 10px 10px 0;
+    margin: 16px 0;
+  }
+  .callout.warn { border-left-color: var(--warn); }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .timeline {
+    border-left: 2px solid var(--border);
+    padding-left: 22px;
+    margin-top: 12px;
+  }
+  .timeline .item { margin-bottom: 22px; position: relative; }
+  .timeline .item::before {
+    content: "";
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+  .timeline .item h3 { margin: 0 0 6px; color: var(--text); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="badge">Project Overview</span>
+    <h1>WalletSync</h1>
+    <p class="lead">
+      A pipeline that turns Chase credit card web pages and rewards PDFs into clean, validated,
+      machine-readable JSON. It pulls pricing terms (APRs, fees, intro offers) and rewards program
+      details (earning rates, redemption options, transfer partners) for 41 cards, then merges them
+      into one dataset you can query, compare, and build on.
+    </p>
+  </header>
+
+  <section>
+    <h2>What we are doing here</h2>
+    <p>
+      Credit card terms are scattered across HTML pricing pages (the legally required Schumer Box)
+      and multi-page rewards agreement PDFs. The format is meant for humans, not software. WalletSync
+      reads those sources, extracts the important fields, and writes them into a typed schema
+      (Pydantic models) so downstream code can trust the structure.
+    </p>
+    <p>
+      The project takes a two-track approach, because the two source types are very different:
+    </p>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Pricing: deterministic parsing</h3>
+        <p class="muted">Path B</p>
+        <p>
+          Pricing pages are already HTML tables, so we parse them with BeautifulSoup and extract
+          values with regex. This is fast, free, and cannot invent values that are not in the source.
+          Result: 100% of 41 cards, $0 cost, under one second.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Rewards: LLM extraction</h3>
+        <p class="muted">AWS Bedrock, Claude 3 Haiku</p>
+        <p>
+          Rewards agreements are unstructured PDF text, so an LLM reads them and fills the schema.
+          A fallback path extracts earning rates from the product page HTML when no PDF exists.
+          Each record is tagged with a data quality tier so consumers know how much to trust it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The pipeline</h2>
+    <div class="flow">
+      <div class="step">
+        <div class="n">STAGE 1</div>
+        <div><strong>Raw dumps</strong></div>
+        <div class="muted" style="font-size:13px">Scrape pricing HTML to JSON; download rewards PDFs to text.</div>
+      </div>
+      <div class="arrow">&rarr;</div>
+      <div class="step">
+        <div class="n">STAGE 2</div>
+        <div><strong>Structured extraction</strong></div>
+        <div class="muted" style="font-size:13px">Deterministic parser for pricing; LLM for rewards. Validated against Pydantic schemas.</div>
+      </div>
+      <div class="arrow">&rarr;</div>
+      <div class="step">
+        <div class="n">STAGE 3</div>
+        <div><strong>Merge and save</strong></div>
+        <div class="muted" style="font-size:13px">Combine pricing, rewards, and base card info into one JSON per card.</div>
+      </div>
+    </div>
+    <p class="muted">
+      The CLI (<code>extract_card_data.py</code>) ties the stages together with a resume feature:
+      it skips cards already processed, so a crash or a daily refresh only pays for new work.
+    </p>
+  </section>
+
+  <section>
+    <h2>Current results</h2>
+    <div class="grid grid-4" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+      <div class="stat"><span class="num">41</span><span class="label">Chase cards covered</span></div>
+      <div class="stat"><span class="num">100%</span><span class="label">Pricing success (deterministic)</span></div>
+      <div class="stat"><span class="num">~$0.14</span><span class="label">Total run cost (of $0.75 budget)</span></div>
+      <div class="stat"><span class="num">300x</span><span class="label">Faster than the old LLM pricing path</span></div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Data type</th><th>Coverage</th><th>Quality</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pricing</td>
+          <td>41 / 41</td>
+          <td><span class="pill good">High</span></td>
+          <td>Deterministic parse, zero hallucinations. Replaced the earlier LLM path that had 3 silent errors.</td>
+        </tr>
+        <tr>
+          <td>Rewards (Tier 1, PDF)</td>
+          <td>13 / 41</td>
+          <td><span class="pill warn">Medium</span></td>
+          <td>Full rewards structure from the legal agreement PDF.</td>
+        </tr>
+        <tr>
+          <td>Rewards (Tier 2, HTML fallback)</td>
+          <td>13 / 41</td>
+          <td><span class="pill warn">Medium</span></td>
+          <td>Earning rates only; transfer partners and redemption values are not in marketing copy.</td>
+        </tr>
+        <tr>
+          <td>Rewards (Tier 3, none)</td>
+          <td>15 / 41</td>
+          <td><span class="pill bad">None</span></td>
+          <td>One Slate card has no rewards program; 14 failed LLM category validation.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout warn">
+      <strong>Known gap:</strong> 14 co-branded cards (Southwest, United, IHG, Amazon, DoorDash, Ink)
+      failed rewards extraction because the LLM invented category names that the schema does not
+      allow. These are documented with clear fixes, not silent failures.
+    </div>
+  </section>
+
+  <section>
+    <h2>What the data looks like</h2>
+    <p>A single card file (<code>output/cards/freedom-flex-a6950e.json</code>) has three blocks:</p>
+    <ul>
+      <li><code>card_info</code>: name, annual fee, signup bonus, reward currency.</li>
+      <li><code>pricing</code>: 27 fields, APR ranges, intro periods, every fee.</li>
+      <li><code>rewards</code>: earning categories, redemption options, transfer partners, expiration policy.</li>
+    </ul>
+    <pre>{
+  "_meta": { "card_id": "freedom-flex-a6950e", "data_sources": ["pricing_extended", "rewards_extended"] },
+  "card_info": {
+    "card_name": "Chase Freedom Flex",
+    "annual_fee_usd": 0,
+    "sign_up_bonus_value": 200,
+    "reward_currency": "Cash Back"
+  },
+  "pricing": {
+    "purchase_apr_min": 18.24,
+    "purchase_apr_max": 27.74,
+    "purchase_apr_intro_pct": 0.0,
+    "purchase_apr_intro_months": 15,
+    "foreign_transaction_fee_pct": 3.0,
+    "late_payment_fee_max_usd": 40
+  },
+  "rewards": {
+    "point_value_cents_baseline": 1.0,
+    "earning_categories": [
+      { "category": "dining", "rate": 3.0 },
+      { "category": "drugstores", "rate": 3.0 },
+      { "category": "travel_chase_portal", "rate": 5.0 },
+      { "category": "all_other", "rate": 1.0 }
+    ],
+    "redemption_options": [
+      { "method": "cash_back", "value_cents_per_point": 1.0 },
+      { "method": "travel_portal", "value_cents_per_point": 1.25 }
+    ]
+  }
+}</pre>
+    <p class="muted">Abbreviated for readability. The real file has all 27 pricing fields and full rewards detail.</p>
+  </section>
+
+  <section>
+    <h2>Use cases</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Card comparison tools</h3>
+        <p>
+          Compare APRs, fees, and earn rates side by side across all 41 cards. The flat schema makes
+          sorting and filtering trivial: "no-annual-fee cards with 3x dining" is a one-line query.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Rewards optimization</h3>
+        <p>
+          For Tier 1 cards, compute the best redemption per point and the best transfer partner
+          ratio. Build a "which card for this spend" recommender from the earning categories.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Signup bonus tracking</h3>
+        <p>
+          The schema captures bonus value, spend requirement, and the months to hit it. A dashboard
+          can surface time-limited offers and flag cards whose bonus disqualifying products apply.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Cost-of-carry modeling</h3>
+        <p>
+          Feed pricing fields (APR ranges, balance transfer fees, intro windows) into a calculator
+          that models interest over time, or compares a balance transfer vs. carrying a balance.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Change monitoring</h3>
+        <p>
+          Re-run the pipeline on a schedule and diff the JSON. Because pricing is deterministic, any
+          change in an APR or fee is a real issuer change, not parser noise. Alert on it.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Training data and RAG</h3>
+        <p>
+          The clean records are a ready dataset for a card-recommendation assistant. Pair the JSON
+          with a vector store and an agent can answer "best Chase card for international travel"
+          from grounded, validated data instead of guessing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Potential benefits</h2>
+    <ul>
+      <li><strong>Trustworthy financial data.</strong> Pricing comes from deterministic parsing, so a
+        number in the dataset always traces back to a specific HTML table row. No black box.</li>
+      <li><strong>Low, predictable cost.</strong> A full 41-card run costs about $0.14. The pricing
+        half is free; only the unstructured rewards PDFs call the LLM.</li>
+      <li><strong>Resumable and cheap to refresh.</strong> Skip logic means a daily re-run only pays
+        for cards that changed or were not yet processed.</li>
+      <li><strong>Typed contracts for consumers.</strong> Pydantic models and the
+        <code>data_quality_tier</code> field let downstream code branch on confidence instead of
+        guessing whether a field exists.</li>
+      <li><strong>Reproducible.</strong> Same input, same output. Deterministic parsing makes bugs
+        debuggable and unit-testable, which is hard with LLM extraction.</li>
+      <li><strong>A foundation, not a one-off.</strong> The parser-first lesson (use structured
+        parsing for structured sources, LLM only for unstructured ones) generalizes to other banks
+        and other regulated disclosure formats.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Next steps</h2>
+    <div class="timeline">
+      <div class="item">
+        <h3>1. Close the rewards gap</h3>
+        <p>
+          Fix the 14 LLM category-validation failures by adding explicit category mappings to the
+          prompt and expanding <code>ALLOWED_CATEGORIES</code> where a co-branded category is
+          genuinely needed. Expected gain: roughly 10 to 12 cards move up to Tier 1, at about $0.04.
+        </p>
+      </div>
+      <div class="item">
+        <h3>2. Backfill flagship transfer partners</h3>
+        <p>
+          Sapphire Reserve and Sapphire Preferred are Tier 2 today, so they are missing transfer
+          partner and redemption multiplier data that matters most for premium cards. Either enhance
+          the scraper to visit product detail pages or add a manual override file for these few cards.
+        </p>
+      </div>
+      <div class="item">
+        <h3>3. Add scheduled change detection</h3>
+        <p>
+          Wire the pipeline to run on a schedule, diff the new JSON against the last run, and alert
+          on changed pricing fields. Deterministic output makes this reliable.
+        </p>
+      </div>
+      <div class="item">
+        <h3>4. Implement URL-based extraction</h3>
+        <p>
+          The <code>--url</code> flag is stubbed out. Finishing it lets the pipeline accept any Chase
+          card page on demand, not just the 41 in the cleaned dataset.
+        </p>
+      </div>
+      <div class="item">
+        <h3>5. Build a downstream app</h3>
+        <p>
+          Use the merged dataset as the backend for a comparison site, a card-recommendation
+          assistant, or a personal wallet tracker. The schema is already the contract.
+        </p>
+      </div>
+      <div class="item">
+        <h3>6. Generalize beyond Chase</h3>
+        <p>
+          The deterministic-first approach should transfer to other issuers whose pricing pages use
+          HTML tables. Abstract the parser per issuer and keep one shared output schema.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Key files</h2>
+    <div class="tag-list">
+      <span class="tag">extract_card_data.py</span>
+      <span class="tag">src/parse_pricing_deterministic.py</span>
+      <span class="tag">src/dump_pricing_text.py</span>
+      <span class="tag">src/extract_rewards_extended.py</span>
+      <span class="tag">src/extract_rewards_html_fallback.py</span>
+      <span class="tag">src/schemas.py</span>
+      <span class="tag">src/build_unified_dataset.py</span>
+      <span class="tag">tests/test_pricing_parser.py</span>
+      <span class="tag">tests/test_pricing_regression.py</span>
+    </div>
+    <p class="muted" style="margin-top:14px">
+      See <code>README.md</code> and <code>USAGE.md</code> for run instructions, and
+      <code>PATH_B_COMPLETE.md</code> for the full story on the deterministic pricing rewrite.
+    </p>
+  </section>
+
+  <footer>
+    WalletSync project overview. Generated from the current state of the repository.
+    Status: production-ready with documented limitations.
+  </footer>
+
+</div>
+</body>
+</html>
