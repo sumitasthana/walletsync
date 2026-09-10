@@ -4,7 +4,7 @@ Add a new bank by creating a package under src/banks/<key>/ with a
 BankConfig and registering it in BANKS below. See docs/ONBOARDING_NEW_BANK.md.
 """
 
-from src.banks.base import BankConfig
+from src.banks.base import BankConfig, PROJECT_ROOT
 from src.banks.chase import CHASE
 from src.banks.pnc import PNC
 

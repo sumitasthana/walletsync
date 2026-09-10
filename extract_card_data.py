@@ -11,6 +11,7 @@ Usage:
     python extract_card_data.py --batch <num_cards>
     python extract_card_data.py --list
     python extract_card_data.py --list-banks
+    python extract_card_data.py --build-unified
 
 Examples:
     # List supported banks
@@ -44,6 +45,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from src.banks import BANKS, get_bank
 from src.common import merge
+from src.unified.build_unified import write_unified
 
 logging.basicConfig(
     level=logging.INFO,
@@ -218,6 +220,7 @@ def main():
     input_group.add_argument('--batch', type=int, metavar='N', help='Extract first N cards')
     input_group.add_argument('--list', action='store_true', help='List available cards')
     input_group.add_argument('--list-banks', action='store_true', help='List supported banks')
+    input_group.add_argument('--build-unified', action='store_true', help='Build the unified cross-bank dataset')
     
     # Options
     parser.add_argument('--bank', default='chase', help='Bank key (default: chase; see --list-banks)')
@@ -230,6 +233,11 @@ def main():
     # Handle --list-banks
     if args.list_banks:
         list_banks()
+        return
+    
+    # Handle --build-unified
+    if args.build_unified:
+        write_unified()
         return
     
     bank = get_bank(args.bank)
