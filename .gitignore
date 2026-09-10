@@ -32,6 +32,7 @@ data/*/raw/pricing/*.md
 data/*/raw/rewards/*.txt
 data/*/*.json
 data/*/spike/
+data/vector_index/
 !data/chase/cards.json
 !data/chase/cards_clean.json
 !data/pnc/cards.json

@@ -35,6 +35,8 @@ their cards optimally.
 5. Maps the data to your usage and suggests your top-of-the-wallet card:
    which card to pay with at restaurants, which one for subscriptions, and
    which single card should be your default
+6. Explains the fine print on demand: an agent chats over the actual
+   documents and answers in plain language, with citations
 
 ## Quick Start
 
@@ -60,6 +62,23 @@ python extract_card_data.py --card-id freedom-flex-a6950e
 python extract_card_data.py --bank chase --batch 5
 ```
 
+## Ask the fine print
+
+Chat with the actual documents. The agent reads the pricing terms and
+rewards agreements and answers in plain language, with citations:
+
+```bash
+# One card, documents straight into context (no index needed)
+python src/agent/toc_chat.py --card-id freedom-flex-a6950e
+
+# Across a bank or the whole wallet (requires the index)
+python src/rag/build_index.py
+python src/agent/toc_chat.py --bank chase
+```
+
+Try: "what happens if I pay late?", "when do my points expire?",
+"which cards have no foreign transaction fee?"
+
 ## The buried details it captures
 
 - Purchase, balance transfer, cash advance, and penalty APRs, including
@@ -81,6 +100,7 @@ python extract_card_data.py --bank chase --batch 5
 | Pricing extraction (deterministic) | Done: 41/41 cards, 100% accuracy against reviewed source data, $0 cost |
 | Rewards extraction (PDF and HTML tiers) | Done: 26/41 cards in tier 1 or tier 2 |
 | Multi-bank architecture and unified dataset | Done |
+| Document chat with citations | Done: agent over the raw terms corpus, 1595 chunks in a local vector index |
 | PNC onboarding | Spike complete, pipeline is the next effort |
 | Usage profile and top-of-wallet suggestions | Roadmap: the next milestone, built on the unified dataset |
 

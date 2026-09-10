@@ -240,6 +240,38 @@ python src/pricing/dump_pricing_text.py --bank chase
 python src/rewards/dump_rewards_text.py --bank chase
 ```
 
+## Document Chat
+
+`src/agent/toc_chat.py` is an agent that answers questions about card terms
+from the captured documents, with citations.
+
+Single-card mode puts that card's documents straight into the model context,
+so it needs no index:
+
+```bash
+python src/agent/toc_chat.py --card-id freedom-flex-a6950e
+```
+
+Retrieval mode answers questions across many cards using a local vector
+index (ChromaDB at `data/vector_index/`, embeddings via Amazon Titan).
+Build the index first, then chat:
+
+```bash
+python src/rag/build_index.py            # all banks with data
+python src/agent/toc_chat.py --bank chase
+python src/agent/toc_chat.py             # everything indexed
+```
+
+The agent has three tools: `search_documents` (vector search over Schumer
+Box rows, full pricing text, rewards agreements, and marketing copy),
+`get_card` (the structured pricing and rewards record for one card), and
+`get_pricing_field` (one field for all cards, for which-cards questions).
+Tool calls are printed as they run. Each question costs a fraction of a
+cent on Claude 3 Haiku.
+
+Re-run `src/rag/build_index.py` after new dumps are captured. Unchanged
+chunks are skipped, so only new text is embedded.
+
 ## File Structure
 
 ```
