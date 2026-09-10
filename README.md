@@ -1,6 +1,40 @@
-# WalletSync - Credit Card Data Extractor
+# WalletSync
 
-Extract comprehensive credit card data from supported banks including pricing terms and rewards programs. Chase is fully supported; PNC is under investigation (see `docs/reports/pnc_spike.md`).
+Every detail of your credit cards, including the ones buried in the lengthy
+terms and conditions nobody reads, mapped to how you actually spend.
+
+WalletSync optimizes your credit card usage. It gathers the full detail of
+each card, reads the fine print in pricing terms and rewards agreements, and
+maps it against your spending so you always know which card should be
+top-of-the-wallet: the one to reach for first, and the one to use for each
+kind of purchase.
+
+## The problem
+
+Card issuers publish the full truth about their products in dense documents:
+a pricing terms sheet with every APR, fee, and intro period, and a rewards
+agreement with earning categories, caps, activation rules, redemption values,
+and transfer partners. The marketing page shows the sign-up bonus and skips
+the rest. The 4% category that stops after $8,000 a year, the quarterly
+categories you forgot to activate, the points that expire, the 3% foreign
+transaction fee: almost nobody reads those documents, so almost nobody uses
+their cards optimally.
+
+## What WalletSync does
+
+1. Gathers the card lineup and documents for each supported bank (Chase
+   today, PNC next, more via the onboarding runbook)
+2. Reads the fine print: a deterministic parser extracts the full pricing
+   table (the Schumer Box) with 100% accuracy and zero cost, and LLM
+   extraction pulls the rewards structure out of agreement documents
+3. Validates every record against strict schemas with business rules, so a
+   made-up fee or category fails loudly instead of silently reaching your
+   recommendations
+4. Merges all banks into one unified dataset, with a data quality tier on
+   every card
+5. Maps the data to your usage and suggests your top-of-the-wallet card:
+   which card to pay with at restaurants, which one for subscriptions, and
+   which single card should be your default
 
 ## Quick Start
 
@@ -26,15 +60,29 @@ python extract_card_data.py --card-id freedom-flex-a6950e
 python extract_card_data.py --bank chase --batch 5
 ```
 
-## Features
+## The buried details it captures
 
-✅ **41 Chase credit cards** - Complete coverage  
-✅ **27 pricing fields** - APRs, fees, intro periods  
-✅ **Deterministic pricing extraction** - 100% success rate, zero hallucinations, $0 cost  
-✅ **Nested rewards data** - Earning categories, redemption options, transfer partners  
-✅ **Pydantic validation** - Type-safe schemas with business rules  
-✅ **Idempotent & resumable** - Skips already processed cards  
-✅ **Cost efficient** - ~$0.001 per card (rewards only, pricing is free)  
+- Purchase, balance transfer, cash advance, and penalty APRs, including
+  ranges, margins over the Prime Rate, and intro periods with month counts
+- Foreign transaction, balance transfer, cash advance, late payment, and
+  authorized user fees, including minimums and maximums
+- Earning categories with their fine print: annual combined caps, quarterly
+  activation requirements, merchant category exclusions
+- Redemption values for every method (cash back, statement credit, travel
+  portal, transfer partners) and minimum redemption amounts
+- Transfer partner ratios, point expiration rules, and the products that
+  disqualify a sign-up bonus
+
+## Where it stands
+
+| Capability | Status |
+|---|---|
+| Chase card lineup | Done: 41 cards scraped and cleaned |
+| Pricing extraction (deterministic) | Done: 41/41 cards, 100% accuracy against reviewed source data, $0 cost |
+| Rewards extraction (PDF and HTML tiers) | Done: 26/41 cards in tier 1 or tier 2 |
+| Multi-bank architecture and unified dataset | Done |
+| PNC onboarding | Spike complete, pipeline is the next effort |
+| Usage profile and top-of-wallet suggestions | Roadmap: the next milestone, built on the unified dataset |
 
 ## Output Files
 
