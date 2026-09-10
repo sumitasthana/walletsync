@@ -6,7 +6,11 @@ import os
 # Add src to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from src.scraper.clean_data import extract_base_earn_rate
+from src.scraper.clean_data import (
+    extract_base_earn_rate,
+    extract_sign_up_bonus,
+    generate_card_id,
+)
 
 
 def test_freedom_flex():
@@ -31,6 +35,40 @@ def test_prime_visa():
     """Prime Visa should return 1.0 for base rate, not 5.0 Amazon rate."""
     text = "Earn unlimited 5% back at Amazon.com... and unlimited 1% back on all other purchases"
     assert extract_base_earn_rate(text) == 1.0
+
+
+def test_pnc_cash_rewards_base_rate():
+    """PNC Cash Rewards should return 1.0 for the all-other rate, not 4.0 gas."""
+    text = "Earn 4% cash back on gas station purchases, 3% on dining purchases at restaurants, and 2% on grocery store purchases for the first $8,000 in combined purchases in these categories annually. Earn 1% cash back on all other purchases."
+    assert extract_base_earn_rate(text) == 1.0
+
+
+def test_pnc_cash_unlimited_base_rate():
+    """PNC Cash Unlimited flat-rate copy should return 2.0."""
+    text = "Earn unlimited 2% cash back on purchases"
+    assert extract_base_earn_rate(text) == 2.0
+
+
+def test_pnc_sign_up_bonus():
+    """PNC phrasing 'making $1,000 in purchases' should parse."""
+    text = "Earn a $200 bonus after opening an account and making $1,000 in purchases within the first 3 months"
+    assert extract_sign_up_bonus(text) == (200, 1000, 3)
+
+
+def test_pnc_card_id():
+    """PNC product URLs should produce clean slugs, no .html or path prefixes."""
+    url = "https://www.pnc.com/en/personal-banking/banking/credit-cards/pnc-cash-rewards-visa-credit-card.html"
+    card_id = generate_card_id(url)
+    assert card_id.startswith("pnc-cash-rewards-visa-credit-card-")
+    assert ".html" not in card_id
+    assert "personal-banking" not in card_id
+    assert len(card_id.rsplit("-", 1)[1]) == 6
+
+
+def test_chase_card_id_unchanged():
+    """Chase URL id generation must not change."""
+    url = "https://creditcards.chase.com/cash-back-credit-cards/freedom/flex?iCELL=6ZYD"
+    assert generate_card_id(url) == "freedom-flex-a6950e"
 
 
 if __name__ == '__main__':

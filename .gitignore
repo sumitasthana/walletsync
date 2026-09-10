@@ -34,6 +34,8 @@ data/*/*.json
 data/*/spike/
 !data/chase/cards.json
 !data/chase/cards_clean.json
+!data/pnc/cards.json
+!data/pnc/cards_clean.json
 
 # Temporary files
 *.log

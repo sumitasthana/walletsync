@@ -129,7 +129,7 @@ See [USAGE.md](docs/USAGE.md) for complete documentation including:
 | Bank | Status | Cards |
 |------|--------|-------|
 | chase | ready | 41 |
-| pnc | spike (investigation only) | - |
+| pnc | manifest onboarded, document capture pending | 4 |
 
 Each bank keeps its data under `data/<bank>/`. To add another issuer, see
 [ONBOARDING_NEW_BANK.md](docs/ONBOARDING_NEW_BANK.md).

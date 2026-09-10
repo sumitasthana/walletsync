@@ -95,6 +95,9 @@ def extract_sign_up_bonus(offer_text: Optional[str]) -> tuple[Optional[int], Opt
     
     # Extract spend requirement
     match = re.search(r'spend\s+\$(\d+(?:,\d{3})*)', offer_text, re.IGNORECASE)
+    if not match:
+        # PNC phrasing: "making $1,000 in purchases"
+        match = re.search(r'making\s+\$(\d+(?:,\d{3})*)\s+in\s+purchases', offer_text, re.IGNORECASE)
     if match:
         spend_req = int(match.group(1).replace(',', ''))
     
@@ -153,6 +156,11 @@ def extract_base_earn_rate(earning_text: Optional[str]) -> Optional[float]:
     if match:
         return float(match.group(1))
     
+    # Flat-rate cards: "Earn unlimited 2% cash back on purchases" (PNC Cash Unlimited)
+    match = re.search(r'unlimited\s+(\d+(?:\.\d+)?)\s*%\s+cash\s+back\s+on\s+(?:every\s+)?purchase', text_lower)
+    if match:
+        return float(match.group(1))
+    
     return None
 
 
@@ -166,11 +174,12 @@ def generate_card_id(details_url: Optional[str]) -> str:
     path = parsed.path
     
     # Get meaningful segments (exclude 'credit-cards' but keep category like 'cash-back')
-    segments = [s for s in path.split('/') if s]
+    # Strip .html suffixes (PNC product pages) before slug building
+    segments = [s[:-5] if s.endswith('.html') else s for s in path.split('/') if s]
     
     # Filter out generic terms but keep meaningful ones
     meaningful = []
-    skip_terms = {'credit-cards', 'rewards-credit-cards'}
+    skip_terms = {'credit-cards', 'rewards-credit-cards', 'en', 'personal-banking', 'banking'}
     for seg in segments:
         if seg not in skip_terms:
             meaningful.append(seg)

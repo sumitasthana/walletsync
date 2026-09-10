@@ -1,0 +1,50 @@
+[
+  {
+    "card_name": "PNC Cash Rewards® Visa® Credit Card",
+    "details_url": "https://www.pnc.com/en/personal-banking/banking/credit-cards/pnc-cash-rewards-visa-credit-card.html",
+    "annual_fee": "$0 Annual Fee",
+    "apr_info": "0% intro APR for the first 15 months following account opening when the balance is transferred within the first 90 days following account opening. Then a variable APR, currently 18.49% to 28.49%, based on creditworthiness. This APR will vary with the market based on the prime rate.",
+    "marketing_tag": null,
+    "offer_headline": "Earn a $200 bonus",
+    "offer_threshold": "Earn a $200 bonus after opening an account and making $1,000 in purchases within the first 3 months",
+    "earning_rates": "Earn 4% cash back on gas station purchases, 3% on dining purchases at restaurants, and 2% on grocery store purchases for the first $8,000 in combined purchases in these categories annually. Earn 1% cash back on all other purchases.",
+    "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-rewards-rates.pdf",
+    "rewards_agreement_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-rewards-terms-conditions.pdf"
+  },
+  {
+    "card_name": "PNC Cash Unlimited® Visa Signature® Credit Card",
+    "details_url": "https://www.pnc.com/en/personal-banking/banking/credit-cards/pnc-cash-unlimited-visa-credit-card.html",
+    "annual_fee": "$0 Annual Fee",
+    "apr_info": "0% intro APR on qualifying balance transfers for the first 15 months following account opening when the balance is transferred within the first 90 days following account opening. Then a variable APR on balance transfers, currently 18.49% to 28.49%, based on creditworthiness. This APR will vary with the market based on the prime rate.",
+    "marketing_tag": null,
+    "offer_headline": null,
+    "offer_threshold": null,
+    "earning_rates": "Earn unlimited 2% cash back on purchases. No caps on how much you can earn. No cash back expiration dates. No foreign transaction fees.",
+    "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/Agreement-Cash-Unlimited-Credit-Card.pdf",
+    "rewards_agreement_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-unlimited-terms-conditions.pdf"
+  },
+  {
+    "card_name": "PNC Spend Wise Visa Credit Card",
+    "details_url": "https://www.pnc.com/en/personal-banking/banking/credit-cards/pnc-spend-wise-visa-credit-card.html",
+    "annual_fee": "$0 Annual Fee",
+    "apr_info": "0% Intro APR on purchases for the first 18 months following account opening and 0% Intro APR on balance transfers for the first 18 months following account opening when the balance is transferred within the first 90 days following account opening. Then a variable APR, currently 19.49% to 27.49%, based on creditworthiness. This APR will vary with the market based on the prime rate.",
+    "marketing_tag": "Purchase APR Reduction Program",
+    "offer_headline": null,
+    "offer_threshold": null,
+    "earning_rates": null,
+    "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/spend-wise-rates.pdf",
+    "rewards_agreement_url": null
+  },
+  {
+    "card_name": "PNC Secured Visa Credit Card",
+    "details_url": "https://www.pnc.com/en/personal-banking/banking/credit-cards/pnc-secured-credit-card.html",
+    "annual_fee": "$0 Annual Fee",
+    "apr_info": null,
+    "marketing_tag": "Build credit with a refundable security deposit of $300 to $2,500",
+    "offer_headline": null,
+    "offer_threshold": null,
+    "earning_rates": null,
+    "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/secured-rates.pdf",
+    "rewards_agreement_url": null
+  }
+]

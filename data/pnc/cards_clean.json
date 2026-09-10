@@ -1,0 +1,58 @@
+[
+  {
+    "card_id": "pnc-cash-rewards-visa-credit-card-0e8451",
+    "card_name": "PNC Cash Rewards® Visa® Credit Card",
+    "annual_fee_usd": 0,
+    "waived_first_year": false,
+    "reward_currency": "Cash Back",
+    "sign_up_bonus_value": 200,
+    "sign_up_bonus_spend_req": 1000,
+    "sign_up_bonus_months": 3,
+    "base_earn_rate": 1.0,
+    "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-rewards-rates.pdf",
+    "rewards_agreement_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-rewards-terms-conditions.pdf",
+    "bank": "pnc"
+  },
+  {
+    "card_id": "pnc-cash-unlimited-visa-credit-card-97b0d4",
+    "card_name": "PNC Cash Unlimited® Visa Signature® Credit Card",
+    "annual_fee_usd": 0,
+    "waived_first_year": false,
+    "reward_currency": "Cash Back",
+    "sign_up_bonus_value": null,
+    "sign_up_bonus_spend_req": null,
+    "sign_up_bonus_months": null,
+    "base_earn_rate": 2.0,
+    "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/Agreement-Cash-Unlimited-Credit-Card.pdf",
+    "rewards_agreement_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-unlimited-terms-conditions.pdf",
+    "bank": "pnc"
+  },
+  {
+    "card_id": "pnc-spend-wise-visa-credit-card-61de75",
+    "card_name": "PNC Spend Wise Visa Credit Card",
+    "annual_fee_usd": 0,
+    "waived_first_year": false,
+    "reward_currency": "Unknown",
+    "sign_up_bonus_value": null,
+    "sign_up_bonus_spend_req": null,
+    "sign_up_bonus_months": null,
+    "base_earn_rate": null,
+    "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/spend-wise-rates.pdf",
+    "rewards_agreement_url": null,
+    "bank": "pnc"
+  },
+  {
+    "card_id": "pnc-secured-credit-card-51490e",
+    "card_name": "PNC Secured Visa Credit Card",
+    "annual_fee_usd": 0,
+    "waived_first_year": false,
+    "reward_currency": "Unknown",
+    "sign_up_bonus_value": null,
+    "sign_up_bonus_spend_req": null,
+    "sign_up_bonus_months": null,
+    "base_earn_rate": null,
+    "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/secured-rates.pdf",
+    "rewards_agreement_url": null,
+    "bank": "pnc"
+  }
+]
