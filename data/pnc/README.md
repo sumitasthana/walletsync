@@ -44,3 +44,21 @@ PDF pricing parser and the tier 1 rewards extraction can run against them.
 Note: the Cash Unlimited pricing link points to the pricing addendum
 agreement PDF; the card's own "Rates and Fees" PDF link should be
 confirmed and swapped in during the first capture.
+
+## Card images
+
+Product pages are blocked, so card images are captured manually too. Save
+each card's image as `<card_id>.<ext>` (jpg, png, or webp) in any folder,
+then normalize them into the bank's images directory without network
+access. Every image becomes the same size and form: a 640x400 PNG.
+
+```
+python src/images/fetch_card_images.py --bank pnc --normalize-dir <folder>
+```
+
+The card ids to use as filenames:
+
+- pnc-cash-rewards-visa-credit-card-0e8451
+- pnc-cash-unlimited-visa-credit-card-97b0d4
+- pnc-spend-wise-visa-credit-card-61de75
+- pnc-secured-credit-card-51490e

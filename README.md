@@ -101,6 +101,7 @@ Try: "what happens if I pay late?", "when do my points expire?",
 | Rewards extraction (PDF and HTML tiers) | Done: 26/41 cards in tier 1 or tier 2 |
 | Multi-bank architecture and unified dataset | Done |
 | Document chat with citations | Done: LangGraph agent over the raw terms corpus, 1595 chunks in a local vector index |
+| Card images | Done: 41 Chase images fetched and normalized to 640x400 PNG; PNC via manual capture |
 | PNC onboarding | Spike complete, pipeline is the next effort |
 | Usage profile and top-of-wallet suggestions | Roadmap: the next milestone, built on the unified dataset |
 

@@ -19,6 +19,8 @@ Each bank folder holds the same layout:
 - `extracted_rewards_extended.json` - structured rewards output (PDF tier)
 - `extracted_rewards_html_fallback.json` - structured rewards output (HTML tier)
 - `cards/` - merged per-card files (pricing + rewards)
+- `images/` - card art per card (`<card_id>.png`, 640x400 PNG), with
+  source URLs in `images/manifest.json`
 
 The unified dataset is rebuilt with:
 

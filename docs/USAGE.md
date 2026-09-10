@@ -240,6 +240,25 @@ python src/pricing/dump_pricing_text.py --bank chase
 python src/rewards/dump_rewards_text.py --bank chase
 ```
 
+## Card Images
+
+Card art is fetched per bank and normalized to one size and form: every
+image becomes a 640x400 PNG (aspect preserved, contain-fit on transparent
+padding) at `data/<bank>/images/<card_id>.png`, with source URLs recorded
+in `data/<bank>/images/manifest.json`.
+
+```bash
+python src/images/fetch_card_images.py --bank chase
+```
+
+Existing images are skipped unless `--force` is passed. For banks whose
+site is bot-blocked (PNC), save raw images named `<card_id>.<ext>` into a
+folder and normalize them offline:
+
+```bash
+python src/images/fetch_card_images.py --bank pnc --normalize-dir <folder>
+```
+
 ## Document Chat
 
 `src/agent/toc_chat.py` is a LangGraph agent that answers questions about
