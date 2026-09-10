@@ -376,9 +376,22 @@ class TestNoBedrock:
         assert result.card_id == "test"
         assert result.purchase_apr_min == 18.24
         
-        # Verify no boto3 in sys.modules (would be there if imported)
+        # Verify no boto3 gets imported by the parser itself. Fresh
+        # interpreter: the in-process check is unreliable now that agent
+        # tests import langchain-aws into the shared pytest process.
+        import subprocess
         import sys
-        assert 'boto3' not in sys.modules, "boto3 was imported during test execution"
+        root = str(Path(__file__).parent.parent)
+        code = (
+            "import sys, json; "
+            "sys.path.insert(0, sys.argv[1]); "
+            "import src.pricing.parse_pricing_deterministic; "
+            "print(json.dumps('boto3' in sys.modules))"
+        )
+        probe = subprocess.run([sys.executable, "-c", code, root],
+                               capture_output=True, text=True)
+        assert probe.returncode == 0, probe.stderr
+        assert probe.stdout.strip() == "false", "boto3 was imported by the parser"
 
 
 class TestFormatChanges:

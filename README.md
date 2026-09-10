@@ -100,7 +100,7 @@ Try: "what happens if I pay late?", "when do my points expire?",
 | Pricing extraction (deterministic) | Done: 41/41 cards, 100% accuracy against reviewed source data, $0 cost |
 | Rewards extraction (PDF and HTML tiers) | Done: 26/41 cards in tier 1 or tier 2 |
 | Multi-bank architecture and unified dataset | Done |
-| Document chat with citations | Done: agent over the raw terms corpus, 1595 chunks in a local vector index |
+| Document chat with citations | Done: LangGraph agent over the raw terms corpus, 1595 chunks in a local vector index |
 | PNC onboarding | Spike complete, pipeline is the next effort |
 | Usage profile and top-of-wallet suggestions | Roadmap: the next milestone, built on the unified dataset |
 
