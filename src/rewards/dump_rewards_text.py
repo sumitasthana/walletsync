@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 
+from src.banks import get_bank
 from src.common.pdf_utils import download_and_extract_pdf_text
 
 logging.basicConfig(
@@ -62,21 +63,19 @@ dumped_at: {timestamp}
 def main():
     """Main execution."""
     parser = argparse.ArgumentParser(description="Dump rewards agreement text")
+    parser.add_argument('--bank', default='chase', help='Bank key (see src/banks/)')
     parser.add_argument('--force', action='store_true', help='Force re-dump even if files exist')
     parser.add_argument('--limit', type=int, help='Limit number of cards to process (for debugging)')
     args = parser.parse_args()
     
-    # Setup absolute paths
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(os.path.dirname(script_dir))
-    output_dir = os.path.join(project_root, 'data')
-    dump_dir = os.path.join(output_dir, 'raw', 'rewards')
+    bank = get_bank(args.bank)
+    dump_dir = str(bank.raw_rewards_dir)
     
     # Ensure dump directory exists
     os.makedirs(dump_dir, exist_ok=True)
     
     # Load cleaned cards
-    input_path = os.path.join(output_dir, 'chase_cards_clean.json')
+    input_path = bank.cards_clean_path
     log.info(f"Loading {input_path}...")
     with open(input_path, 'r', encoding='utf-8') as f:
         cards = json.load(f)

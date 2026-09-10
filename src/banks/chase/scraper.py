@@ -8,6 +8,10 @@ import time
 
 from playwright.sync_api import sync_playwright, TimeoutError as PwTimeout
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..'))
+
+from src.banks.chase import CHASE
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
@@ -16,8 +20,8 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 URL = "https://creditcards.chase.com/all-credit-cards?iCELL=6ZYD"
-OUTPUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "data")
-OUTPUT_FILE = os.path.join(OUTPUT_DIR, "chase_cards.json")
+OUTPUT_DIR = str(CHASE.data_dir)
+OUTPUT_FILE = str(CHASE.cards_raw_path)
 
 
 def _text(element):

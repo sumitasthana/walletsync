@@ -27,6 +27,7 @@ load_dotenv()
 # Add project root to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
+from src.banks import get_bank
 from src.common.schemas import RewardsHtmlFallback, ALLOWED_CATEGORIES, coerce_null_strings
 
 logging.basicConfig(
@@ -181,23 +182,22 @@ Extract earning_categories and anniversary_benefit (if mentioned).
 
 def main():
     parser = argparse.ArgumentParser(description='Extract rewards from product page HTML (fallback)')
+    parser.add_argument('--bank', default='chase', help='Bank key (see src/banks/)')
     parser.add_argument('--force', action='store_true', help='Force re-extraction')
     parser.add_argument('--limit', type=int, help='Limit number of cards to process (for debugging)')
     args = parser.parse_args()
     
     # Setup paths
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(os.path.dirname(script_dir))
-    output_dir = os.path.join(project_root, 'data')
-    output_path = os.path.join(output_dir, 'extracted_rewards_html_fallback.json')
+    bank = get_bank(args.bank)
+    output_path = bank.extracted_fallback_path
     
     # Load cleaned cards
-    clean_cards_path = os.path.join(output_dir, 'chase_cards_clean.json')
+    clean_cards_path = bank.cards_clean_path
     with open(clean_cards_path, 'r', encoding='utf-8') as f:
         clean_cards = json.load(f)
     
     # Load raw cards (for earning_rates text)
-    raw_cards_path = os.path.join(output_dir, 'chase_cards.json')
+    raw_cards_path = bank.cards_raw_path
     with open(raw_cards_path, 'r', encoding='utf-8') as f:
         raw_cards = json.load(f)
     

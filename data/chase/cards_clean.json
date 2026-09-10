@@ -10,7 +10,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": 1.5,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60906.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://www.chase.com/freedomunlimited/rewardsagreement?iCELL=6ZYD"
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "freedom-flex-a6950e",
@@ -23,7 +24,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60938.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0534_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0534_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "freedom-rise-f1f176",
@@ -36,7 +38,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": 1.5,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC57233.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0540_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0540_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "sapphire-reserve-4f5bd8",
@@ -49,7 +52,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC62576.html?iCELL=6ZYD",
-    "rewards_agreement_url": "/rewards-credit-cards/sapphire/reserve?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0550_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "sapphire-preferred-629c0c",
@@ -62,7 +66,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61729.html?iCELL=6ZYD",
-    "rewards_agreement_url": "/rewards-credit-cards/sapphire/preferred?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0551_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "balance-transfer-credit-cards-slate-927bad",
@@ -75,7 +80,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63300.html?iCELL=6ZYD",
-    "rewards_agreement_url": null
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "united-united-explorer-c88d47",
@@ -88,7 +94,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63218.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0480_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0480_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "united-united-quest-8bce46",
@@ -101,7 +108,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64080.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0278_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0278_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "united-united-gateway-1e791e",
@@ -114,7 +122,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60660.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0261_0262_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0261_0262_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "united-club-infinite-6aa061",
@@ -127,7 +136,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64077.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0437_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0437_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "southwest-plus-205636",
@@ -140,7 +150,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63968.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0458_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0458_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "southwest-priority-faced8",
@@ -153,7 +164,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64006.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0530_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0530_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "southwest-premier-f55175",
@@ -166,7 +178,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63993.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0459_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0459_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "marriott-bonvoy-boundless-58772b",
@@ -179,7 +192,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63947.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://www.chase.com/marriottboundlesscard/rewardsagreement?iCELL=6ZYD"
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "marriott-bonvoy-bountiful-3127ef",
@@ -192,7 +206,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61472.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://www.chase.com/marriottbountifulcard/rewardsagreement?iCELL=6ZYD"
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "marriott-bonvoy-bold-e81fcd",
@@ -205,7 +220,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC62055.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://www.chase.com/marriottboldcard/rewardsagreement?iCELL=6ZYD"
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "ihg-rewards-club-premier-83e78a",
@@ -218,7 +234,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60778.html?iCELL=6ZYD",
-    "rewards_agreement_url": "/travel-credit-cards/ihg-rewards-club/premier?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0529_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "ihg-rewards-club-traveler-0de400",
@@ -231,7 +248,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC62162.html?iCELL=6ZYD",
-    "rewards_agreement_url": "/travel-credit-cards/ihg-rewards-club/traveler?iCELL=6ZYD"
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "travel-credit-cards-world-of-hyatt-credit-card-42b091",
@@ -244,7 +262,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61032.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0456_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0456_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "disney-inspire-474a37",
@@ -257,7 +276,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63173.html?iCELL=6ZYD",
-    "rewards_agreement_url": "/rewards-credit-cards/disney/inspire?iCELL=6ZYD"
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "disney-premier-4df7b1",
@@ -270,7 +290,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63172.html?iCELL=6ZYD",
-    "rewards_agreement_url": "/rewards-credit-cards/disney/premier?iCELL=6ZYD"
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "disney-rewards-fa5408",
@@ -283,7 +304,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63171.html?iCELL=6ZYD",
-    "rewards_agreement_url": "/rewards-credit-cards/disney/rewards?iCELL=6ZYD"
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "aircanada-aeroplan-78c7af",
@@ -296,7 +318,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61438.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0538_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0538_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "avios-british-airways-4d38be",
@@ -309,7 +332,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": 3.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61716.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0508_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0508_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "avios-aer-lingus-8e7765",
@@ -322,7 +346,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": 3.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61785.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0526_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0526_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "avios-iberia-de8b4a",
@@ -335,7 +360,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": 3.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61715.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0527_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0527_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "cash-back-credit-cards-amazon-prime-rewards-be2ce5",
@@ -348,7 +374,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC59329.html?iCELL=6ZYD",
-    "rewards_agreement_url": "/cash-back-credit-cards/amazon-prime-rewards?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0441_0510_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "cash-back-credit-cards-amazon-rewards-1a3f0c",
@@ -361,7 +388,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC59318.html?iCELL=6ZYD",
-    "rewards_agreement_url": "/cash-back-credit-cards/amazon-rewards?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0441_0510_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "cash-back-credit-cards-doordash-fd9eef",
@@ -374,7 +402,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61934.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0542_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0542_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "cash-back-credit-cards-instacart-637ff6",
@@ -387,7 +416,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60680.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0539_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0539_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "sapphire-reserve-5a3e5c",
@@ -400,7 +430,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63786.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://www.chase.com/reserveforbusiness/rewardsagreement?iCELL=6ZYD"
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "ink-unlimited-8e2880",
@@ -413,7 +444,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63749.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0516_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0516_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "ink-business-preferred-787063",
@@ -426,7 +458,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63764.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0514_0515_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0514_0515_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "ink-cash-d37349",
@@ -439,7 +472,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63827.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0475_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0475_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "ink-premier-50fdd7",
@@ -452,7 +486,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63834.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0535_0536_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0535_0536_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "united-united-business-card-af84c5",
@@ -465,7 +500,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC62231.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://www.chase.com/unitedbusinesscard/rewardsagreement?iCELL=6ZYD"
+    "rewards_agreement_url": null,
+    "bank": "chase"
   },
   {
     "card_id": "united-united-club-business-0e28a1",
@@ -478,7 +514,8 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63542.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0479_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0479_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "southwest-performance-business-e571e5",
@@ -491,7 +528,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61809.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0531_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0531_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "southwest-premier-business-b9416c",
@@ -504,7 +542,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC61808.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0461_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0461_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "ihg-business-premier-468b6d",
@@ -517,7 +556,8 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC60915.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0314_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0314_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   },
   {
     "card_id": "world-of-hyatt-hyatt-business-card-d13d76",
@@ -530,6 +570,7 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": null,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC64092.html?iCELL=6ZYD",
-    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0537_Web.pdf?iCELL=6ZYD"
+    "rewards_agreement_url": "https://asset.chase.com/content/dam/card/rulesregulations/en/RPA0537_Web.pdf?iCELL=6ZYD",
+    "bank": "chase"
   }
 ]

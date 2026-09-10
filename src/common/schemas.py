@@ -4,11 +4,10 @@ from typing import Optional, List, Literal
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 
-# Canonical category vocabulary
-ALLOWED_CATEGORIES = [
+# Bank-neutral category vocabulary shared by all issuers
+BASE_CATEGORIES = [
     "dining",
     "travel",
-    "travel_chase_portal",
     "gas",
     "groceries",
     "drugstores",
@@ -19,11 +18,19 @@ ALLOWED_CATEGORIES = [
     "car_rental",
     "home_improvement",
     "rotating_5pct",
-    "lyft",
-    "peloton",
     "all_other",
     "other"
 ]
+
+# Issuer-specific categories, registered per bank in src/banks/
+CHASE_CATEGORY_EXTENSIONS = [
+    "travel_chase_portal",
+    "lyft",
+    "peloton"
+]
+
+# Full vocabulary: union of the base list and every bank extension
+ALLOWED_CATEGORIES = BASE_CATEGORIES + CHASE_CATEGORY_EXTENSIONS
 
 
 class PricingExtended(BaseModel):
@@ -32,6 +39,7 @@ class PricingExtended(BaseModel):
     # Identifiers
     card_id: str
     card_name: str
+    bank: str = Field("chase", description="Issuing bank key (see src/banks/)")
     pricing_terms_url: str
     
     # Purchase APR
@@ -121,6 +129,7 @@ class RewardsExtended(BaseModel):
     # Identifiers
     card_id: str
     card_name: str
+    bank: str = Field("chase", description="Issuing bank key (see src/banks/)")
     rewards_agreement_url: str
     
     # Data quality
@@ -187,6 +196,7 @@ class RewardsHtmlFallback(BaseModel):
     """
     card_id: str
     card_name: str
+    bank: str = Field("chase", description="Issuing bank key (see src/banks/)")
     source_type: str = "product_page_html"
     source_text_length: int
     

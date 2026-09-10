@@ -1,5 +1,6 @@
 """Deterministic pricing parser - no LLM, pure regex on structured Schumer Box data."""
 
+import argparse
 import json
 import logging
 import re
@@ -9,6 +10,7 @@ from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
+from src.banks import get_bank
 from src.common.schemas import PricingExtended
 
 logging.basicConfig(
@@ -344,19 +346,27 @@ def parse_pricing(dump: dict) -> PricingExtended:
 
 def main():
     """Main execution - parse all pricing dumps."""
-    # Setup paths
-    script_dir = Path(__file__).parent
-    project_root = script_dir.parent.parent
-    dump_dir = project_root / "data" / "raw" / "pricing"
-    output_path = project_root / "data" / "extracted_pricing_extended.json"
-    failures_path = project_root / "data" / "pricing_parse_failures.json"
+    parser = argparse.ArgumentParser(description="Parse pricing dumps deterministically")
+    parser.add_argument('--bank', default='chase', help='Bank key (see src/banks/)')
+    parser.add_argument('--force', action='store_true', help='Accepted for CLI compatibility; parsing always reprocesses all dumps')
+    parser.add_argument('--limit', type=int, help='Limit number of dumps to process (for debugging)')
+    args = parser.parse_args()
+
+    bank = get_bank(args.bank)
+    dump_dir = bank.raw_pricing_dir
+    output_path = bank.extracted_pricing_path
+    failures_path = bank.data_dir / "pricing_parse_failures.json"
     
     log.info(f"Loading dumps from {dump_dir}")
     
     results = []
     failures = []
     
-    for dump_path in sorted(dump_dir.glob("*.json")):
+    dump_paths = sorted(dump_dir.glob("*.json"))
+    if args.limit:
+        dump_paths = dump_paths[:args.limit]
+
+    for dump_path in dump_paths:
         card_id = dump_path.stem
         log.info(f"Parsing {card_id}...")
         

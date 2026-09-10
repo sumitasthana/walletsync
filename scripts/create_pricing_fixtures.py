@@ -5,7 +5,7 @@ import os
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Load current LLM-extracted pricing data
-data = json.load(open('data/extracted_pricing_extended.json'))
+data = json.load(open('data/chase/extracted_pricing_extended.json'))
 
 # Filter out metadata records and failed cards
 cards = [card for card in data if 'card_id' in card]

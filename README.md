@@ -1,6 +1,6 @@
 # WalletSync - Credit Card Data Extractor
 
-Extract comprehensive credit card data from Chase including pricing terms and rewards programs.
+Extract comprehensive credit card data from supported banks including pricing terms and rewards programs. Chase is fully supported; PNC is under investigation (see `docs/reports/pnc_spike.md`).
 
 ## Quick Start
 
@@ -13,14 +13,17 @@ export AWS_ACCESS_KEY_ID=your_key
 export AWS_SECRET_ACCESS_KEY=your_secret
 export AWS_DEFAULT_REGION=us-east-1
 
-# List available cards
-python extract_card_data.py --list
+# List supported banks
+python extract_card_data.py --list-banks
+
+# List available cards for a bank (default: chase)
+python extract_card_data.py --bank chase --list
 
 # Extract a single card
 python extract_card_data.py --card-id freedom-flex-a6950e
 
 # Extract first 5 cards
-python extract_card_data.py --batch 5
+python extract_card_data.py --bank chase --batch 5
 ```
 
 ## Features
@@ -36,7 +39,7 @@ python extract_card_data.py --batch 5
 ## Output Files
 
 ### Individual Card Files
-`data/cards/<card_id>.json` - Complete merged data per card
+`data/chase/cards/<card_id>.json` - Complete merged data per card
 
 ```json
 {
@@ -61,8 +64,8 @@ python extract_card_data.py --batch 5
 ```
 
 ### Combined Files
-- `data/extracted_pricing_extended.json` - All pricing data
-- `data/extracted_rewards_extended.json` - All rewards data
+- `data/chase/extracted_pricing_extended.json` - All pricing data
+- `data/chase/extracted_rewards_extended.json` - All rewards data
 
 ## Documentation
 
@@ -73,6 +76,16 @@ See [USAGE.md](docs/USAGE.md) for complete documentation including:
 - Cost estimates
 - Troubleshooting
 
+## Supported Banks
+
+| Bank | Status | Cards |
+|------|--------|-------|
+| chase | ready | 41 |
+| pnc | spike (investigation only) | - |
+
+Each bank keeps its data under `data/<bank>/`. To add another issuer, see
+[ONBOARDING_NEW_BANK.md](docs/ONBOARDING_NEW_BANK.md).
+
 ## Project Structure
 
 ```
@@ -82,6 +95,7 @@ WalletSync/
 ├── docs/                                   # Guides and run reports
 │   ├── USAGE.md                            # Complete usage guide
 │   ├── DATA_QUALITY_TIERS.md               # Data quality tier contract
+│   ├── ONBOARDING_NEW_BANK.md              # New bank onboarding runbook
 │   ├── PATH_B_COMPLETE.md                 # Deterministic pricing notes
 │   └── reports/                           # Run summaries and investigations
 ├── scripts/                               # One-off utilities
@@ -91,8 +105,13 @@ WalletSync/
 │   ├── investigate_rewards_urls.py
 │   └── verify_coverage.py
 ├── src/
+│   ├── banks/
+│   │   ├── base.py                        # BankConfig and path helpers
+│   │   ├── chase/                         # Chase adapter (scraper.py)
+│   │   └── pnc/                           # PNC adapter (spike only)
 │   ├── common/
 │   │   ├── schemas.py                      # Pydantic models
+│   │   ├── merge.py                       # Per-card merge logic
 │   │   ├── dump_utils.py
 │   │   └── pdf_utils.py
 │   ├── pricing/
@@ -104,20 +123,18 @@ WalletSync/
 │   │   ├── extract_rewards_extended.py     # LLM rewards parser (PDF)
 │   │   └── extract_rewards_html_fallback.py # LLM rewards parser (HTML)
 │   └── scraper/
-│       ├── chase_scraper.py                # Initial scraper
-│       └── clean_data.py                   # Data cleaning
+│       └── clean_data.py                   # Data cleaning (bank-aware)
 ├── tests/
+│   ├── test_banks.py                       # Bank registry tests
 │   ├── test_pricing_parser.py              # Unit tests for deterministic parser
 │   ├── test_pricing_regression.py          # Regression tests vs LLM baseline
 │   └── fixtures/                           # HTML fixtures for testing
 └── data/
-    ├── chase_cards.json                    # Raw scraped data
-    ├── chase_cards_clean.json              # Cleaned base card data
-    ├── extracted_pricing_extended.json     # All pricing (deterministic)
-    ├── extracted_rewards_extended.json     # PDF rewards (LLM)
-    ├── extracted_rewards_html_fallback.json # HTML rewards (LLM)
-    ├── cards/                              # Merged per-card JSONs
-    └── raw/                               # Structured JSON and text dumps
+    ├── README.md                           # Data layout guide
+    ├── chase/                              # Chase: cards.json, cards_clean.json,
+    │                                       #   raw/, extracted_*.json, cards/
+    ├── pnc/                                # PNC spike captures
+    └── unified/                            # Cross-bank combined dataset
 ```
 
 ## Extraction Architecture
@@ -131,7 +148,6 @@ WalletSync/
 - PDF/HTML → LLM (Bedrock Claude 3 Haiku) → RewardsExtended
 - ~60% coverage, ~$0.05 per run, ~3 minutes
 - Appropriate for unstructured reward program descriptions
-```
 
 ## License
 

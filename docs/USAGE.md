@@ -2,7 +2,7 @@
 
 ## Overview
 
-The WalletSync Card Data Extractor is a CLI application that extracts comprehensive credit card data from Chase card pages, including pricing terms and rewards program details.
+The WalletSync Card Data Extractor is a CLI application that extracts comprehensive credit card data from supported bank card pages (default: Chase), including pricing terms and rewards program details.
 
 ## Installation
 
@@ -18,10 +18,20 @@ export AWS_DEFAULT_REGION=us-east-1
 
 ## Quick Start
 
+### List Supported Banks
+
+```bash
+python extract_card_data.py --list-banks
+```
+
 ### List Available Cards
 
 ```bash
+# Default bank is chase
 python extract_card_data.py --list
+
+# Or explicitly
+python extract_card_data.py --bank chase --list
 ```
 
 This shows all 41 Chase cards with their card IDs and available data sources (pricing/rewards).
@@ -51,7 +61,7 @@ python extract_card_data.py --batch 5 --force
 The application generates three types of output:
 
 ### 1. Individual Card Files
-**Location**: `data/cards/<card_id>.json`
+**Location**: `data/chase/cards/<card_id>.json`
 
 Each file contains complete card data with three sections:
 
@@ -92,7 +102,7 @@ Each file contains complete card data with three sections:
 ```
 
 ### 2. Combined Pricing Data
-**Location**: `data/extracted_pricing_extended.json`
+**Location**: `data/chase/extracted_pricing_extended.json`
 
 Array of all extracted pricing data with 27 fields per card including:
 - APR ranges (purchase, balance transfer, cash advance, penalty)
@@ -101,7 +111,7 @@ Array of all extracted pricing data with 27 fields per card including:
 - APR index and margins
 
 ### 3. Combined Rewards Data
-**Location**: `data/extracted_rewards_extended.json`
+**Location**: `data/chase/extracted_rewards_extended.json`
 
 Array of all extracted rewards data with nested structures:
 - Earning categories (with caps, activation requirements)
@@ -113,21 +123,24 @@ Array of all extracted rewards data with nested structures:
 ## Command Line Options
 
 ```
-usage: extract_card_data.py [-h] (--url URL | --card-id CARD_ID | --batch N | --list)
-                            [--force] [--skip-dumps] [--output-dir OUTPUT_DIR]
+usage: extract_card_data.py [-h] (--url URL | --card-id CARD_ID | --batch N | --list | --list-banks)
+                            [--bank BANK] [--force] [--skip-dumps]
+                            [--output-dir OUTPUT_DIR]
 
-Extract comprehensive credit card data from Chase
+Extract comprehensive credit card data from supported banks
 
 optional arguments:
   -h, --help            show this help message and exit
-  --url URL             Chase card URL to extract (not yet implemented)
+  --url URL             Card URL to extract (not yet implemented)
   --card-id CARD_ID     Card ID from cleaned data
   --batch N             Extract first N cards
   --list                List available cards
+  --list-banks          List supported banks
+  --bank BANK           Bank key (default: chase; see --list-banks)
   --force               Force re-extraction even if data exists
   --skip-dumps          Skip dump step (use existing dumps)
   --output-dir OUTPUT_DIR
-                        Output directory for individual card JSONs (default: data/cards)
+                        Output directory for individual card JSONs (default: data/<bank>/cards)
 ```
 
 ## Pipeline Stages
@@ -135,19 +148,20 @@ optional arguments:
 The extraction pipeline has 3 stages:
 
 ### Stage 1: Raw Dumps
-- Scrapes pricing pages (HTML → Markdown)
+- Scrapes pricing pages (HTML → structured JSON)
 - Downloads rewards PDFs (PDF → Text)
-- Saves to `data/raw/pricing/` and `data/raw/rewards/`
+- Saves to `data/chase/raw/pricing/` and `data/chase/raw/rewards/`
 - **Skip with**: `--skip-dumps` (uses existing dumps)
 
 ### Stage 2: Structured Extraction
-- Calls AWS Bedrock (Claude 3 Haiku) to extract structured data
+- Pricing is parsed deterministically (no LLM, no cost)
+- Rewards are extracted with AWS Bedrock (Claude 3 Haiku)
 - Validates with Pydantic schemas
-- Saves to `data/extracted_pricing_extended.json` and `data/extracted_rewards_extended.json`
+- Saves to `data/chase/extracted_pricing_extended.json` and `data/chase/extracted_rewards_extended.json`
 
 ### Stage 3: Merge & Save
 - Merges pricing + rewards + base card data
-- Saves individual card files to `data/cards/`
+- Saves individual card files to `data/chase/cards/`
 
 ## Examples
 
@@ -201,7 +215,7 @@ python extract_card_data.py --list
 
 ### "Pricing extraction failed"
 - Check AWS credentials are set
-- Verify dumps exist in `data/raw/pricing/`
+- Verify dumps exist in `data/chase/raw/pricing/`
 - Try with `--force` to regenerate dumps
 
 ### "No cards with URLs found"
@@ -212,18 +226,18 @@ python extract_card_data.py --list
 
 ### Extract only pricing data
 ```bash
-python src/pricing/parse_pricing_deterministic.py
+python src/pricing/parse_pricing_deterministic.py --bank chase
 ```
 
 ### Extract only rewards data
 ```bash
-python src/rewards/extract_rewards_extended.py
+python src/rewards/extract_rewards_extended.py --bank chase
 ```
 
 ### Generate dumps only
 ```bash
-python src/pricing/dump_pricing_text.py
-python src/rewards/dump_rewards_text.py
+python src/pricing/dump_pricing_text.py --bank chase
+python src/rewards/dump_rewards_text.py --bank chase
 ```
 
 ## File Structure
@@ -234,22 +248,27 @@ WalletSync/
 ├── docs/                         # Guides and run reports
 ├── scripts/                     # One-off utilities
 ├── src/
-│   ├── common/                   # schemas, dump_utils, pdf_utils
+│   ├── banks/                   # Bank registry, Chase and PNC adapters
+│   ├── common/                   # schemas, merge, dump_utils, pdf_utils
 │   ├── pricing/                  # dump, deterministic parser, legacy LLM
 │   ├── rewards/                  # dump, PDF parser, HTML fallback
-│   └── scraper/                 # chase_scraper, clean_data
+│   └── scraper/                 # clean_data (bank-aware)
 ├── tests/
+│   ├── test_banks.py
 │   ├── test_pricing_parser.py
 │   ├── test_pricing_regression.py
 │   └── fixtures/
 └── data/
-    ├── chase_cards.json          # Raw scraped data
-    ├── chase_cards_clean.json    # Cleaned base card data
-    ├── extracted_pricing_extended.json
-    ├── extracted_rewards_extended.json
-    ├── extracted_rewards_html_fallback.json
-    ├── cards/                    # Merged per-card JSON files
-    └── raw/
-        ├── pricing/              # Structured JSON dumps
-        └── rewards/              # PDF text dumps
+    ├── chase/                    # Per-bank data for Chase
+    │   ├── cards.json            # Raw scraped data
+    │   ├── cards_clean.json    # Cleaned base card data
+    │   ├── extracted_pricing_extended.json
+    │   ├── extracted_rewards_extended.json
+    │   ├── extracted_rewards_html_fallback.json
+    │   ├── cards/                # Merged per-card JSON files
+    │   └── raw/
+    │       ├── pricing/          # Structured JSON dumps
+    │       └── rewards/          # PDF text dumps
+    ├── pnc/                      # PNC spike captures
+    └── unified/                  # Cross-bank combined dataset
 ```

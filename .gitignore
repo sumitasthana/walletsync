@@ -26,14 +26,14 @@ ENV/
 *.swp
 *.swo
 
-# Data (keep structure but ignore generated data)
-data/cards/*.json
-data/raw/pricing/*.md
-data/raw/rewards/*.txt
-data/*.json
-!data/chase_cards.json
-!data/chase_cards_clean.json
-!data/.gitkeep
+# Data (per bank; keep structure but ignore generated data)
+data/*/cards/*.json
+data/*/raw/pricing/*.md
+data/*/raw/rewards/*.txt
+data/*/*.json
+data/*/spike/
+!data/chase/cards.json
+!data/chase/cards_clean.json
 
 # Temporary files
 *.log

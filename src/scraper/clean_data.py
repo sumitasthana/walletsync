@@ -1,11 +1,17 @@
-"""Clean and transform scraped Chase card data to structured schema."""
+"""Clean and transform scraped card data to structured schema."""
 
+import argparse
 import hashlib
 import json
 import os
 import re
+import sys
 from typing import Optional
 from urllib.parse import urlparse
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+
+from src.banks import get_bank
 
 
 def extract_annual_fee(fee_text: Optional[str]) -> tuple[Optional[int], bool]:
@@ -215,13 +221,14 @@ def clean_card_data(raw_card: dict) -> dict:
 
 
 def main():
-    # Setup absolute paths
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(os.path.dirname(script_dir))
-    output_dir = os.path.join(project_root, 'data')
-    
+    parser = argparse.ArgumentParser(description="Clean scraped card data")
+    parser.add_argument('--bank', default='chase', help='Bank key (see src/banks/)')
+    args = parser.parse_args()
+
+    bank = get_bank(args.bank)
+
     # Load raw data
-    input_path = os.path.join(output_dir, 'chase_cards.json')
+    input_path = bank.cards_raw_path
     with open(input_path, 'r', encoding='utf-8') as f:
         raw_cards = json.load(f)
     
@@ -248,9 +255,11 @@ def main():
     
     # Clean each card
     cleaned_cards = [clean_card_data(card) for card in raw_cards]
+    for card in cleaned_cards:
+        card['bank'] = bank.key
     
     # Save cleaned data
-    output_path = os.path.join(output_dir, 'chase_cards_clean.json')
+    output_path = bank.cards_clean_path
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(cleaned_cards, f, indent=2, ensure_ascii=False)
     

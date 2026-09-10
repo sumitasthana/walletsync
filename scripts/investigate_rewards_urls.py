@@ -138,7 +138,7 @@ def investigate_card(page, card_name, details_url):
 
 def main():
     # Load cards
-    with open("data/chase_cards_clean.json", "r", encoding="utf-8") as f:
+    with open("data/chase/cards_clean.json", "r", encoding="utf-8") as f:
         cards = json.load(f)
     
     # Find cards to investigate
@@ -160,7 +160,7 @@ def main():
         
         for card in cards_to_check:
             # Try to get details_url from raw data
-            with open("data/chase_cards.json", "r", encoding="utf-8") as f:
+            with open("data/chase/cards.json", "r", encoding="utf-8") as f:
                 raw_cards = json.load(f)
             
             details_url = None
