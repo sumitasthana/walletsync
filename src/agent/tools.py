@@ -137,4 +137,10 @@ def build_tools(collection, embed_client):
                 out.append(f"{key}: {c.get('card_id')} - {c.get('card_name')}")
         return "\n".join(out) or "No cards found."
 
-    return [search_documents, get_card, get_pricing_field, list_cards]
+    @tool
+    def recommend_cards(needs: str, top: int = 6) -> str:
+        """Rank credit cards against a plain-language description of the user's spending needs (for example 'I spend a lot on gas and groceries'). Returns scored matches with the earn rates that matched. Use this whenever the user asks which card fits them."""
+        from src.recommend.matcher import match_cards
+        return json.dumps(match_cards(needs, top=top), ensure_ascii=False, default=str)
+
+    return [search_documents, get_card, get_pricing_field, recommend_cards, list_cards]

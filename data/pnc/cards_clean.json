@@ -10,7 +10,7 @@
     "sign_up_bonus_months": 3,
     "base_earn_rate": 1.0,
     "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-rewards-rates.pdf",
-    "rewards_agreement_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-rewards-terms-conditions.pdf",
+    "rewards_agreement_url": null,
     "bank": "pnc"
   },
   {
@@ -24,7 +24,7 @@
     "sign_up_bonus_months": null,
     "base_earn_rate": 2.0,
     "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/Agreement-Cash-Unlimited-Credit-Card.pdf",
-    "rewards_agreement_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-unlimited-terms-conditions.pdf",
+    "rewards_agreement_url": null,
     "bank": "pnc"
   },
   {

@@ -14,6 +14,16 @@ def test_unified_contains_all_chase_cards():
     assert len(chase_cards) == 41
 
 
+def test_unified_contains_pnc_cards():
+    unified = build_unified()
+    pnc_cards = [c for c in unified if c["card_info"].get("bank") == "pnc"]
+    assert len(pnc_cards) == 4
+    by_name = {c["card_info"]["card_name"]: c for c in pnc_cards}
+    cash_rewards = next(c for c in pnc_cards if "Cash Rewards" in c["card_info"]["card_name"])
+    assert cash_rewards["_meta"]["data_quality_tier"] == "tier_2_html"
+    assert cash_rewards.get("rewards_fallback")
+
+
 def test_unified_records_have_bank_and_tier():
     unified = build_unified()
     assert unified

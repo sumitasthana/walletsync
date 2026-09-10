@@ -79,6 +79,16 @@ python src/agent/toc_chat.py --bank chase
 Try: "what happens if I pay late?", "when do my points expire?",
 "which cards have no foreign transaction fee?"
 
+## Match cards to how you spend
+
+A terminal-style chat UI with live card matching. As you type your needs,
+the matches panel updates in real time; sending the message hands it to
+the agent, which explains its picks with citations.
+
+```bash
+python src/web/app.py    # then open http://127.0.0.1:5000
+```
+
 ## The buried details it captures
 
 - Purchase, balance transfer, cash advance, and penalty APRs, including
@@ -102,6 +112,7 @@ Try: "what happens if I pay late?", "when do my points expire?",
 | Multi-bank architecture and unified dataset | Done |
 | Document chat with citations | Done: LangGraph agent over the raw terms corpus, 1595 chunks in a local vector index |
 | Card images | Done: 41 Chase images fetched and normalized to 640x400 PNG; PNC via manual capture |
+| Live card-matching UI | Done: deterministic matcher ranks cards as you type; LangGraph agent explains picks |
 | PNC onboarding | Spike complete, pipeline is the next effort |
 | Usage profile and top-of-wallet suggestions | Roadmap: the next milestone, built on the unified dataset |
 

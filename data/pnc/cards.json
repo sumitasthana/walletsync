@@ -9,7 +9,7 @@
     "offer_threshold": "Earn a $200 bonus after opening an account and making $1,000 in purchases within the first 3 months",
     "earning_rates": "Earn 4% cash back on gas station purchases, 3% on dining purchases at restaurants, and 2% on grocery store purchases for the first $8,000 in combined purchases in these categories annually. Earn 1% cash back on all other purchases.",
     "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-rewards-rates.pdf",
-    "rewards_agreement_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-rewards-terms-conditions.pdf"
+    "rewards_agreement_url": null
   },
   {
     "card_name": "PNC Cash Unlimited® Visa Signature® Credit Card",
@@ -19,9 +19,9 @@
     "marketing_tag": null,
     "offer_headline": null,
     "offer_threshold": null,
-    "earning_rates": "Earn unlimited 2% cash back on purchases. No caps on how much you can earn. No cash back expiration dates. No foreign transaction fees.",
+    "earning_rates": "Earn unlimited 2% cash back on purchases. No caps on how much you can earn. No cash back expiration dates. No foreign transaction fees. Cash back can be redeemed as a monetary credit to your account or a deposit to a qualifying PNC Bank checking or savings account.",
     "pricing_terms_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/Agreement-Cash-Unlimited-Credit-Card.pdf",
-    "rewards_agreement_url": "https://www.pnc.com/content/dam/pnc-com/pdf/personal/CreditCards/cash-unlimited-terms-conditions.pdf"
+    "rewards_agreement_url": null
   },
   {
     "card_name": "PNC Spend Wise Visa Credit Card",

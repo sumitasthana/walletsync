@@ -43,7 +43,10 @@ PDF pricing parser and the tier 1 rewards extraction can run against them.
 
 Note: the Cash Unlimited pricing link points to the pricing addendum
 agreement PDF; the card's own "Rates and Fees" PDF link should be
-confirmed and swapped in during the first capture.
+confirmed and swapped in during the first capture. The manifest's
+rewards_agreement_url fields stay null until the terms PDFs above are
+captured; until then tier 2 rewards come from the marketing copy, and
+capturing the PDFs upgrades those cards to tier 1.
 
 ## Card images
 

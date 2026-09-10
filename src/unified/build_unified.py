@@ -26,12 +26,14 @@ def data_quality_tier(pricing, rewards, fallback):
 
 
 def build_unified() -> list:
-    """Build the unified dataset in memory (no file writes)."""
+    """Build the unified dataset in memory (no file writes).
+
+    Includes every bank that has cleaned card data, regardless of pipeline
+    status; banks still in investigation simply contribute less detail.
+    """
     unified = []
     for key in sorted(BANKS):
         bank = BANKS[key]
-        if bank.status != "ready":
-            continue
         if not bank.cards_clean_path.exists():
             continue
         cards = merge.load_json_records(bank.cards_clean_path)

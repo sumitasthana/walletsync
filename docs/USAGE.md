@@ -283,15 +283,33 @@ python src/agent/toc_chat.py --bank chase
 python src/agent/toc_chat.py             # everything indexed
 ```
 
-The agent has four tools: `search_documents` (vector search over Schumer
+The agent has five tools: `search_documents` (vector search over Schumer
 Box rows, full pricing text, rewards agreements, and marketing copy),
 `get_card` (the structured pricing and rewards record for one card),
 `get_pricing_field` (one field for all cards, for which-cards questions),
+`recommend_cards` (rank cards against a description of spending needs),
 and `list_cards` (card ids and names only). Tool calls are printed as they
 run. Each question costs a fraction of a cent on Claude 3 Haiku.
 
 Re-run `src/rag/build_index.py` after new dumps are captured. Unchanged
 chunks are skipped, so only new text is embedded.
+
+## Web UI
+
+`src/web/app.py` serves a terminal-style chat with live card matching:
+
+```bash
+python src/web/app.py    # then open http://127.0.0.1:5000
+```
+
+Typing in the input calls `/api/match`, which runs the deterministic
+matcher in `src/recommend/matcher.py` (no LLM): it parses the text for
+spending categories, then scores every card by its earn rates on the
+matched categories, its base rate on general spend, its foreign
+transaction fee for international use, and a small annual fee penalty.
+Sending the message calls `/api/chat`, which runs the LangGraph agent
+with a `recommend_cards` tool; the cards it recommends are rendered in
+the matches panel next to the agent's explanation.
 
 ## File Structure
 

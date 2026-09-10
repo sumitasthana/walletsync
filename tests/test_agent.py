@@ -1,5 +1,6 @@
 """Tests for the LangGraph agent tools and graph assembly."""
 
+import json
 import sys
 from pathlib import Path
 
@@ -15,9 +16,10 @@ from src.agent.tools import (
 
 def test_build_tools_count():
     tools = build_tools(None, None)
-    assert len(tools) == 4
+    assert len(tools) == 5
     assert {t.name for t in tools} == {
-        "search_documents", "get_card", "get_pricing_field", "list_cards"
+        "search_documents", "get_card", "get_pricing_field",
+        "recommend_cards", "list_cards"
     }
 
 
@@ -55,6 +57,13 @@ def test_get_card_tool():
     tools = {t.name: t for t in build_tools(None, None)}
     result = tools["get_card"].invoke({"card_id": "freedom-flex-a6950e"})
     assert "foreign_transaction_fee_pct" in result
+
+
+def test_recommend_cards_tool():
+    tools = {t.name: t for t in build_tools(None, None)}
+    result = tools["recommend_cards"].invoke({"needs": "gas and groceries"})
+    parsed = json.loads(result)
+    assert any("pnc-cash-rewards" in c["card_id"] for c in parsed)
 
 
 def test_search_reports_missing_index():
