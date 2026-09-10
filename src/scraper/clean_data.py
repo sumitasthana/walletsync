@@ -54,6 +54,9 @@ def classify_reward_currency(earning_text: Optional[str]) -> str:
         return "Unknown"
     
     text_lower = earning_text.lower()
+
+    if 'disney' in text_lower and 'rewards dollars' in text_lower:
+        return "Disney Rewards Dollars"
     
     # Check for miles
     if 'mile' in text_lower or 'avios' in text_lower:
@@ -115,6 +118,10 @@ def extract_base_earn_rate(earning_text: Optional[str]) -> Optional[float]:
         return None
     
     text_lower = earning_text.lower()
+
+    match = re.search(r'(\d+(?:\.\d+)?)\s*%\s+in\s+disney\s+rewards\s+dollars\s+on\s+all\s+(?:card\s+)?purchases', text_lower)
+    if match:
+        return float(match.group(1))
     
     # Look for explicit "X% on all other purchases" pattern (most specific)
     # Pattern 1: "and X% on all other card purchases" (after category rates)

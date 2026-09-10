@@ -81,13 +81,31 @@ Try: "what happens if I pay late?", "when do my points expire?",
 
 ## Match cards to how you spend
 
-A terminal-style chat UI with live card matching. As you type your needs,
-the matches panel updates in real time; sending the message hands it to
-the agent, which explains its picks with citations.
+A React and TypeScript workspace with live card matching, responsive mobile
+panels, and a conversational assistant. As you type your needs, the shortlist
+updates. Send your message to ask the agent about its picks and the fine print.
+Card details show reward rates, fees, caps, and activation requirements.
 
 ```bash
-python src/web/app.py    # then open http://127.0.0.1:5000
+npm --prefix frontend ci
+npm --prefix frontend run build
+python src/web/app.py
+# Open http://127.0.0.1:5000
 ```
+
+The frontend requires Node.js 22.12+ or 24+. Flask serves the Vite production
+build from `src/web/static/app`. Rebuild after changing the frontend.
+For hot reload, keep Flask running and use `npm --prefix frontend run dev`;
+open the URL Vite prints. Its development server proxies API and card image
+requests to Flask on port 5000.
+
+Live matching uses local card data and works without AWS. Assistant replies
+require AWS credentials with Bedrock access. Document search also requires
+the local vector index. Failures show a retry option while keeping live
+matches available. Conversations stay in tab memory and clear on refresh or
+New chat; messages are sent to the backend and Bedrock for replies.
+
+See [frontend setup and tests](frontend/README.md) for development commands.
 
 ## The buried details it captures
 

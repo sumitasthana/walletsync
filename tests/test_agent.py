@@ -35,7 +35,8 @@ def test_format_search_result():
                       "doc_type": "schumer_box", "section": "Late Payment",
                       "source_url": ""}}
     out = format_search_result(r)
-    assert "[chase / x / schumer_box / Late Payment]" in out
+    assert "Source: Card | Pricing terms | Late Payment" in out
+    assert "schumer_box" not in out
     assert "Up to $40" in out
 
 

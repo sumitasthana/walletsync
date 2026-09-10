@@ -7,10 +7,21 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from src.scraper.clean_data import (
+    classify_reward_currency,
     extract_base_earn_rate,
     extract_sign_up_bonus,
     generate_card_id,
 )
+
+
+def test_disney_rewards_are_not_classified_as_cash_back():
+    text = "Earn 1% in Disney Rewards Dollars on all card purchases."
+    assert classify_reward_currency(text) == "Disney Rewards Dollars"
+    assert extract_base_earn_rate(text) == 1.0
+
+
+def test_disney_streaming_rate_is_not_a_base_rate():
+    assert extract_base_earn_rate("Earn 10% in Disney Rewards Dollars at DisneyPlus.com") is None
 
 
 def test_freedom_flex():

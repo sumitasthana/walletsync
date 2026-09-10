@@ -48,3 +48,8 @@ page_dump.html
 
 # Playwright
 .playwright/
+
+# Frontend dependencies and generated assets
+node_modules/
+src/web/static/app/
+test-results/

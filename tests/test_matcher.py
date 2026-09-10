@@ -61,3 +61,17 @@ def test_match_records_have_ui_fields():
         assert isinstance(r["matched"], list)
         assert isinstance(r["has_image"], bool)
         assert r["data_quality_tier"]
+
+
+def test_named_destination_includes_relevant_cards_before_generic_rewards():
+    results = match_cards("I want to go to Disney -- which card would fit", top=6)
+    disney = next(c for c in results[:3] if c["card_id"] == "disney-rewards-fa5408")
+    assert disney["intent_matches"] == ["disney"]
+    assert disney["reward_currency"] == "Disney Rewards Dollars"
+    assert disney["base_earn_rate"] == 1.0
+
+
+def test_brand_relevance_generalizes_beyond_disney():
+    results = match_cards("I stay at Marriott hotels", top=3)
+    assert all("marriott" in r["intent_matches"] for r in results)
+    assert parse_needs("I want to visit Disneyland")["brands"] == ["disney"]

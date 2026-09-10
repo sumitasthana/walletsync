@@ -25,7 +25,9 @@ from langchain_core.messages import AIMessage, HumanMessage
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from src.agent.graph import MODEL_ID, build_agent
+from src.agent.presentation import customer_card_names
 from src.agent.tools import find_bank_for_card, load_card_documents
+from src.banks import BANKS
 from src.rag.embeddings import get_embedding_client
 from src.rag.store import get_collection
 
@@ -67,7 +69,7 @@ def chat(args):
         print(f"Retrieval mode over {scope} ({collection.count()} chunks indexed).")
 
     agent = build_agent(collection=collection, embed_client=embed_client,
-                        model_id=args.model)
+                        model_id=args.model, bank=bank.key if args.card_id else args.bank)
 
     print("Ask a question about card terms. Type 'exit' to quit.\n")
 
@@ -99,7 +101,7 @@ def chat(args):
 
             for m in reversed(result["messages"]):
                 if isinstance(m, AIMessage) and not getattr(m, "tool_calls", None):
-                    text = message_text(m)
+                    text = customer_card_names(message_text(m))
                     if text:
                         print("\nassistant> " + text + "\n")
                     break
@@ -109,8 +111,9 @@ def chat(args):
 
 def main():
     parser = argparse.ArgumentParser(description="Agentic chat over card terms and conditions (LangGraph)")
-    parser.add_argument("--card-id", default=None, help="Chat about one card (documents go in context, no index needed)")
-    parser.add_argument("--bank", default=None, help="Retrieval mode over one bank (requires the index)")
+    scope = parser.add_mutually_exclusive_group()
+    scope.add_argument("--card-id", default=None, help="Chat about one card (documents go in context, no index needed)")
+    scope.add_argument("--bank", default=None, choices=sorted(BANKS), help="Retrieval mode over one bank (requires the index)")
     parser.add_argument("--model", default=MODEL_ID, help=f"Bedrock model id (default: {MODEL_ID})")
     args = parser.parse_args()
     chat(args)

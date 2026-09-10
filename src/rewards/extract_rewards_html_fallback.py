@@ -77,7 +77,7 @@ def extract_rewards_from_html(card_id: str, card_name: str, html_text: str) -> O
                         "properties": {
                             "earning_categories": {
                                 "type": "array",
-                                "description": "List of earning categories with rates. MUST include exactly one 'all_other' entry for base rate.",
+                                "description": "List of explicitly stated earning categories and rates. Include 'all_other' only when the base rate is stated.",
                                 "items": {
                                     "type": "object",
                                     "properties": {
@@ -86,7 +86,7 @@ def extract_rewards_from_html(card_id: str, card_name: str, html_text: str) -> O
                                             "description": f"Category name. MUST be one of: {', '.join(ALLOWED_CATEGORIES)}",
                                             "enum": ALLOWED_CATEGORIES
                                         },
-                                        "rate": {"type": "number", "description": "Points/cash back per dollar"},
+                                        "rate": {"type": "number", "description": "Percentage points or points per dollar: store 3% as 3.0, never 0.03"},
                                         "cap_usd": {"type": ["number", "null"], "description": "Annual spending cap in USD"},
                                         "cap_period": {"type": ["string", "null"], "description": "Cap period (annual, quarterly, etc.)"},
                                         "requires_activation": {"type": "boolean", "description": "Whether category requires activation"},
@@ -120,14 +120,15 @@ CATEGORY VOCABULARY - YOU MUST USE EXACTLY ONE OF THESE (NO EXCEPTIONS):
 {', '.join(ALLOWED_CATEGORIES)}
 
 SPECIAL CASES:
-- Disney purchases: Use "other" category with notes="Disney purchases at select locations"
+- Disney-location purchases: Use "disney" and preserve eligible-location restrictions in notes
+- Disney streaming subscriptions: Use "streaming" and name the eligible services in notes; do not treat this as a Disney-park earning rate
 - Marriott purchases: Use "other" category with notes="Marriott Bonvoy purchases"
 - IHG purchases: Use "other" category with notes="IHG purchases"
-- Brand-specific spending: ALWAYS use "other" with descriptive notes
+- Other brand-specific spending: use a matching allowed category, or "other" with descriptive notes
 
 MANDATORY RULES:
-- MUST include exactly one "all_other" entry for the base earning rate
-- If base rate not stated, infer 1x and add note: "inferred from absence of explicit base rate"
+- Include one "all_other" entry only when the base earning rate is explicit; never infer a rate
+- Rates use percentage points: 5% is 5.0, not 0.05. Do not treat a shopping discount as an earning rate
 - If category is "other", notes field is REQUIRED (explain what "other" means)
 - Use "travel_chase_portal" for Chase Travel/Ultimate Rewards portal bookings
 - Use "travel" for general travel (airlines, hotels booked direct)

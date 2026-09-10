@@ -37,6 +37,25 @@ INTERNATIONAL_KEYWORDS = [
 
 GENERAL_WEIGHT_WHEN_CATEGORIZED = 0.25
 
+# Explicit destination, merchant, or loyalty-program requests need relevant
+# candidates even when their benefits are not represented by an earn-rate row.
+BRAND_KEYWORDS = {
+    "disney": ["disney", "disneyland", "disneyworld"],
+    "amazon": ["amazon"],
+    "marriott": ["marriott", "bonvoy"],
+    "hyatt": ["hyatt"],
+    "ihg": ["ihg", "holiday inn", "intercontinental"],
+    "united": ["united airlines", "united miles", "united card"],
+    "southwest": ["southwest"],
+    "aeroplan": ["aeroplan", "air canada"],
+    "instacart": ["instacart"],
+    "doordash": ["doordash"],
+}
+
+
+def _contains_term(text: str, term: str) -> bool:
+    return re.search(r"(?<!\w)" + re.escape(term) + r"(?!\w)", text) is not None
+
 
 def parse_needs(text: str) -> dict:
     """Parse a needs description into category weights and modifiers."""
@@ -49,6 +68,8 @@ def parse_needs(text: str) -> dict:
         "categories": categories,
         "general": 1.0 if not categories else GENERAL_WEIGHT_WHEN_CATEGORIZED,
         "international": any(k in text_lower for k in INTERNATIONAL_KEYWORDS),
+        "brands": [brand for brand, aliases in BRAND_KEYWORDS.items()
+                   if any(_contains_term(text_lower, alias) for alias in aliases)],
     }
 
 
@@ -96,6 +117,7 @@ def score_card(card: dict, needs: dict) -> tuple:
                 "rate": ec.get("rate"),
                 "cap_usd": ec.get("cap_usd"),
                 "requires_activation": bool(ec.get("requires_activation")),
+                "notes": ec.get("notes"),
             })
 
     base = card.get("base_earn_rate")
@@ -121,7 +143,8 @@ def score_card(card: dict, needs: dict) -> tuple:
 
 
 def match_cards(text: str, top: int = 6,
-                catalog: Optional[List[dict]] = None) -> List[dict]:
+                catalog: Optional[List[dict]] = None,
+                bank: Optional[str] = None) -> List[dict]:
     """Rank cards against a needs description. Deterministic and local."""
     if catalog is None:
         catalog = load_catalog()
@@ -129,6 +152,8 @@ def match_cards(text: str, top: int = 6,
 
     scored = []
     for card in catalog:
+        if bank and card["bank"] != bank:
+            continue
         score, matched = score_card(card, needs)
         scored.append({
             "card_id": card["card_id"],
@@ -142,8 +167,10 @@ def match_cards(text: str, top: int = 6,
             "has_image": card["has_image"],
             "score": round(score, 2),
             "matched": matched,
+            "intent_matches": [brand for brand in needs["brands"]
+                               if _contains_term((card.get("card_name") or "").lower(), brand)],
         })
 
-    scored.sort(key=lambda c: (-c["score"], -len(c["matched"]),
+    scored.sort(key=lambda c: (-len(c["intent_matches"]), -c["score"], -len(c["matched"]),
                                c["annual_fee_usd"] or 0))
     return scored[:top]

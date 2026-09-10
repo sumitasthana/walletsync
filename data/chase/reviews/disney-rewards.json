@@ -1,0 +1,136 @@
+[
+  {
+    "card_id": "disney-inspire-474a37",
+    "card_name": "Disney® Inspire Visa® Card",
+    "reward_currency": "Disney Rewards Dollars",
+    "base_earn_rate": 1.0,
+    "earning_categories": [
+      {
+        "category": "disney",
+        "rate": 3.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": "Most Disney U.S. locations."
+      },
+      {
+        "category": "gas",
+        "rate": 3.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": null
+      },
+      {
+        "category": "groceries",
+        "rate": 2.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": null
+      },
+      {
+        "category": "dining",
+        "rate": 2.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": null
+      },
+      {
+        "category": "streaming",
+        "rate": 10.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": "Direct purchases at DisneyPlus.com, Hulu.com or Stream.ESPN.com only."
+      },
+      {
+        "category": "all_other",
+        "rate": 1.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": null
+      }
+    ],
+    "source_url": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
+    "verified_at": "2026-09-10"
+  },
+  {
+    "card_id": "disney-premier-4df7b1",
+    "card_name": "Disney® Premier Visa® Card",
+    "reward_currency": "Disney Rewards Dollars",
+    "base_earn_rate": 1.0,
+    "earning_categories": [
+      {
+        "category": "disney",
+        "rate": 2.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": "Most Disney U.S. locations."
+      },
+      {
+        "category": "gas",
+        "rate": 2.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": null
+      },
+      {
+        "category": "groceries",
+        "rate": 2.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": null
+      },
+      {
+        "category": "dining",
+        "rate": 2.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": null
+      },
+      {
+        "category": "streaming",
+        "rate": 5.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": "Direct purchases at DisneyPlus.com, Hulu.com or Stream.ESPN.com only."
+      },
+      {
+        "category": "all_other",
+        "rate": 1.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": null
+      }
+    ],
+    "source_url": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
+    "verified_at": "2026-09-10"
+  },
+  {
+    "card_id": "disney-rewards-fa5408",
+    "card_name": "Disney® Visa® Card",
+    "reward_currency": "Disney Rewards Dollars",
+    "base_earn_rate": 1.0,
+    "earning_categories": [
+      {
+        "category": "all_other",
+        "rate": 1.0,
+        "cap_usd": null,
+        "cap_period": null,
+        "requires_activation": false,
+        "notes": "All eligible card purchases."
+      }
+    ],
+    "source_url": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
+    "verified_at": "2026-09-10"
+  }
+]

@@ -52,21 +52,31 @@ def load_card_documents(bank, card_id: str) -> str:
 
 
 def format_search_result(result: dict) -> str:
-    """Render one search hit with its citation."""
+    """Render evidence with readable source names for optional attribution."""
     m = result["metadata"]
-    cite = f"[{m.get('bank')} / {m.get('card_id')} / {m.get('doc_type')}"
+    title = {
+        "schumer_box": "Pricing terms",
+        "pricing": "Pricing terms",
+        "rewards": "Rewards agreement",
+        "marketing": "Card overview",
+    }.get(m.get("doc_type"), "Card terms")
+    cite = f"Source: {m.get('card_name') or 'Card'} | {title}"
     if m.get("section"):
-        cite += f" / {m['section']}"
-    cite += "]"
+        cite += f" | {m['section']}"
+    if m.get("source_url"):
+        cite += f"\nIssuer URL: {m['source_url']}"
     return f"{cite}\n{result['text']}"
 
 
-def build_tools(collection, embed_client):
+def build_tools(collection, embed_client, bank_scope: str | None = None):
     """Build the agent's tool set.
 
     collection and embed_client may be None (search then reports that the
     index is unavailable instead of failing).
     """
+
+    if bank_scope is not None and bank_scope not in BANKS:
+        raise ValueError(f"Unknown bank: {bank_scope}")
 
     class SearchInput(BaseModel):
         query: str = Field(description="What to look for, in the words the documents would use")
@@ -80,6 +90,7 @@ def build_tools(collection, embed_client):
         """Search the full text of card pricing terms, rewards agreements, and marketing copy. Use this for any question about card details."""
         if collection is None or embed_client is None:
             return "Search index not available. Run: python src/rag/build_index.py"
+        bank = bank_scope or bank
         where = {}
         if card_id:
             where["card_id"] = card_id
@@ -100,6 +111,8 @@ def build_tools(collection, embed_client):
         bank = find_bank_for_card(card_id)
         if not bank:
             return f"Unknown card id: {card_id}"
+        if bank_scope and bank.key != bank_scope:
+            return f"Card is outside this session's bank scope: {bank_scope}"
         card = merge.find_record(merge.load_json_records(bank.cards_clean_path), card_id)
         pricing = merge.find_record(merge.load_json_records(bank.extracted_pricing_path), card_id)
         rewards = merge.find_record(merge.load_json_records(bank.extracted_rewards_path), card_id)
@@ -109,6 +122,7 @@ def build_tools(collection, embed_client):
     @tool
     def get_pricing_field(field: str, bank: Optional[str] = None) -> str:
         """Get one pricing field for all cards at once, from the structured extracted records. Use this for 'which cards' questions about fees or APRs. Fields include: foreign_transaction_fee_pct, late_payment_fee_max_usd, purchase_apr_min, purchase_apr_max, cash_advance_apr, penalty_apr_max, balance_transfer_fee_pct, cash_advance_fee_pct, purchase_apr_intro_pct, purchase_apr_intro_months, bt_apr_intro_months, authorized_user_fee_usd."""
+        bank = bank_scope or bank
         lines = []
         for key in sorted(BANKS):
             if bank and key != bank:
@@ -126,6 +140,7 @@ def build_tools(collection, embed_client):
     @tool
     def list_cards(bank: Optional[str] = None) -> str:
         """List card ids and names only. Contains no fee, APR, or rewards detail; do not use it to answer questions about card terms."""
+        bank = bank_scope or bank
         out = []
         for key in sorted(BANKS):
             if bank and key != bank:
@@ -138,9 +153,9 @@ def build_tools(collection, embed_client):
         return "\n".join(out) or "No cards found."
 
     @tool
-    def recommend_cards(needs: str, top: int = 6) -> str:
-        """Rank credit cards against a plain-language description of the user's spending needs (for example 'I spend a lot on gas and groceries'). Returns scored matches with the earn rates that matched. Use this whenever the user asks which card fits them."""
+    def recommend_cards(needs: str, top: int = 6, bank: Optional[str] = None) -> str:
+        """Rank credit cards against the user's spending needs. Optionally restrict to a bank, for example bank='pnc' to find its strongest candidate for comparison. Returns scored matches and earn rates. Use this whenever the user asks which card fits them. Internal card ids are for subsequent tool calls only."""
         from src.recommend.matcher import match_cards
-        return json.dumps(match_cards(needs, top=top), ensure_ascii=False, default=str)
+        return json.dumps(match_cards(needs, top=top, bank=bank_scope or bank), ensure_ascii=False, default=str)
 
     return [search_documents, get_card, get_pricing_field, recommend_cards, list_cards]

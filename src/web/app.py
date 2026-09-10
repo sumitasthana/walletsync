@@ -1,6 +1,8 @@
-"""WalletSync chat UI: a terminal-style chat with live card matching.
+"""WalletSync React UI and chat API with live card matching.
 
 Run:
+    npm --prefix frontend ci
+    npm --prefix frontend run build
     python src/web/app.py
 Then open http://127.0.0.1:5000
 
@@ -14,21 +16,25 @@ import json
 import sys
 from pathlib import Path
 
-from flask import Flask, jsonify, render_template, request, send_from_directory
+from flask import Flask, abort, jsonify, request, send_from_directory
+from werkzeug.exceptions import BadRequest, UnsupportedMediaType
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from dotenv import load_dotenv
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 
-from src.banks import PROJECT_ROOT
+from src.banks import BANKS, PROJECT_ROOT
+from src.agent.presentation import customer_card_names
 from src.rag.embeddings import get_embedding_client
 from src.rag.store import get_collection
-from src.recommend.matcher import match_cards
+from src.recommend.comparison import comparison_matches as match_cards, comparison_summary
 
 load_dotenv()
 
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = 1024 * 1024
+FRONTEND_DIR = Path(__file__).parent / "static" / "app"
 
 AGENT = None
 
@@ -58,14 +64,14 @@ def message_text(m) -> str:
     return str(m.content)
 
 
-def extract_recommendations(messages) -> list:
+def extract_recommendations(messages) -> list | None:
     """Pull the cards the agent recommended from its tool results."""
-    cards = []
+    cards = None
     for m in messages:
         if isinstance(m, ToolMessage) and getattr(m, "name", "") == "recommend_cards":
             try:
                 parsed = json.loads(m.content)
-                if isinstance(parsed, list) and parsed:
+                if isinstance(parsed, list):
                     cards = parsed
             except (json.JSONDecodeError, TypeError):
                 continue
@@ -74,28 +80,58 @@ def extract_recommendations(messages) -> list:
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    if not (FRONTEND_DIR / "index.html").exists():
+        return "Build the frontend first: npm --prefix frontend ci && npm --prefix frontend run build", 503
+    return send_from_directory(FRONTEND_DIR, "index.html")
 
 
 @app.route("/card-images/<bank>/<path:filename>")
 def card_image(bank, filename):
+    if bank not in BANKS:
+        abort(404)
     return send_from_directory(Path(PROJECT_ROOT) / "data" / bank / "images", filename)
+
+
+def json_body():
+    data = request.get_json()
+    if not isinstance(data, dict):
+        raise BadRequest("Expected a JSON object.")
+    return data
+
+
+@app.errorhandler(BadRequest)
+@app.errorhandler(UnsupportedMediaType)
+def invalid_request(error):
+    return jsonify({"error": "Invalid request. Send a JSON object with valid fields."}), error.code
 
 
 @app.route("/api/match", methods=["POST"])
 def api_match():
-    data = request.get_json(force=True) or {}
-    return jsonify({"matches": match_cards(data.get("text", ""),
-                                           top=data.get("top", 6))})
+    data = json_body()
+    text, top = data.get("text", ""), data.get("top", 6)
+    if not isinstance(text, str) or len(text) > 8000:
+        raise BadRequest()
+    if type(top) is not int or not 1 <= top <= 12:
+        raise BadRequest()
+    cards = match_cards(text, top=top) if text.strip() else []
+    return jsonify({"matches": cards, "comparison": comparison_summary(cards, text)})
 
 
 @app.route("/api/chat", methods=["POST"])
 def api_chat():
-    data = request.get_json(force=True) or {}
-    message = (data.get("message") or "").strip()
-    history = (data.get("history") or [])[-12:]
+    data = json_body()
+    message, history = data.get("message", ""), data.get("history", [])
+    if not isinstance(message, str) or len(message) > 8000:
+        raise BadRequest()
+    if not isinstance(history, list) or any(
+        not isinstance(m, dict) or m.get("role") not in ("user", "assistant")
+        or not isinstance(m.get("content"), str) or len(m["content"]) > 16000
+        for m in history
+    ):
+        raise BadRequest()
+    message, history = message.strip(), history[-12:]
     if not message:
-        return jsonify({"reply": "", "cards": []})
+        raise BadRequest()
 
     msgs = []
     for m in history:
@@ -106,21 +142,33 @@ def api_chat():
     msgs.append(HumanMessage(content=message))
 
     reply = ""
-    cards = []
+    cards = None
+    source = "agent"
+    error = None
     try:
         result = get_agent().invoke({"messages": msgs})
-        for m in reversed(result["messages"]):
+        new_messages = result["messages"][len(msgs):]
+        for m in reversed(new_messages):
             if isinstance(m, AIMessage) and not getattr(m, "tool_calls", None):
-                reply = message_text(m)
+                reply = customer_card_names(message_text(m))
                 break
-        cards = extract_recommendations(result["messages"])
-    except Exception as e:
-        reply = f"Agent error: {e}"
+        if not reply:
+            raise RuntimeError("Agent returned no answer")
+        cards = extract_recommendations(new_messages)
+    except Exception:
+        app.logger.exception("Chat agent failed")
+        error = "The assistant is unavailable. You can still explore live card matches. Please try again."
+        reply = ""
 
-    if not cards:
-        cards = match_cards(message, top=6)
+    needs = "\n".join(m["content"] for m in history if m["role"] == "user") + "\n" + message
+    if cards is None:
+        cards = match_cards(needs, top=6)
+        source = "live"
+    elif cards and all(c.get("bank") and c.get("card_name") for c in cards):
+        cards = match_cards(needs, top=6, selected=cards)
 
-    return jsonify({"reply": reply, "cards": cards})
+    return jsonify({"reply": reply, "cards": cards, "source": source, "error": error,
+                    "comparison": comparison_summary(cards, needs)}), 503 if error else 200
 
 
 if __name__ == "__main__":

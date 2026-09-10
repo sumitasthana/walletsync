@@ -270,42 +270,54 @@
     "card_name": "Disney® Inspire Visa® Card",
     "annual_fee_usd": 149,
     "waived_first_year": false,
-    "reward_currency": "Cash Back",
+    "reward_currency": "Disney Rewards Dollars",
     "sign_up_bonus_value": null,
     "sign_up_bonus_spend_req": 1000,
     "sign_up_bonus_months": 3,
     "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63173.html?iCELL=6ZYD",
     "rewards_agreement_url": null,
-    "bank": "chase"
+    "bank": "chase",
+    "rewards_verification": {
+      "source_url": "https://creditcards.chase.com/rewards-credit-cards/disney/inspire",
+      "verified_at": "2026-09-10"
+    }
   },
   {
     "card_id": "disney-premier-4df7b1",
     "card_name": "Disney® Premier Visa® Card",
     "annual_fee_usd": 49,
     "waived_first_year": false,
-    "reward_currency": "Cash Back",
+    "reward_currency": "Disney Rewards Dollars",
     "sign_up_bonus_value": null,
     "sign_up_bonus_spend_req": 500,
     "sign_up_bonus_months": 3,
     "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63172.html?iCELL=6ZYD",
     "rewards_agreement_url": null,
-    "bank": "chase"
+    "bank": "chase",
+    "rewards_verification": {
+      "source_url": "https://creditcards.chase.com/rewards-credit-cards/disney/premier",
+      "verified_at": "2026-09-10"
+    }
   },
   {
     "card_id": "disney-rewards-fa5408",
     "card_name": "Disney® Visa® Card",
     "annual_fee_usd": 0,
     "waived_first_year": false,
-    "reward_currency": "Cash Back",
+    "reward_currency": "Disney Rewards Dollars",
     "sign_up_bonus_value": null,
     "sign_up_bonus_spend_req": 500,
     "sign_up_bonus_months": 3,
-    "base_earn_rate": null,
+    "base_earn_rate": 1.0,
     "pricing_terms_url": "https://sites.chase.com/services/creatives/pricingandterms.html/content/dam/pricingandterms/LGC63171.html?iCELL=6ZYD",
     "rewards_agreement_url": null,
-    "bank": "chase"
+    "bank": "chase",
+    "rewards_verification": {
+      "source_url": "https://creditcards.chase.com/rewards-credit-cards/disney/rewards",
+      "verified_at": "2026-09-10"
+    }
   },
   {
     "card_id": "aircanada-aeroplan-78c7af",
