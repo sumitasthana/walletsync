@@ -81,9 +81,10 @@ Try: "what happens if I pay late?", "when do my points expire?",
 
 ## Match cards to how you spend
 
-A React and TypeScript workspace with live card matching, responsive mobile
-panels, and a conversational assistant. As you type your needs, the shortlist
-updates. Send your message to ask the agent about its picks and the fine print.
+A React and TypeScript workspace with interactive card responses in a single
+conversation. As you type your needs, a shortlist previews in the main window.
+Send your message to keep its cards and comparison with that answer. Additional
+explanations are available in an expandable section below the results.
 Card details show reward rates, fees, caps, and activation requirements.
 
 ```bash

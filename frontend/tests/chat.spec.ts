@@ -32,6 +32,7 @@ test("Disney trip includes the no-fee Disney Visa and labels its rewards correct
       exact: true,
     }),
   });
+  await page.locator(".more-matches > summary").click();
   await expect(disney).toHaveCount(1);
   await expect(disney).toContainText("No annual fee");
   await expect(disney).toContainText("1%");
@@ -67,7 +68,7 @@ test("card questions show names and focus on fit", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("textbox").fill("hotel stays");
   await expect(page.locator(".card-result")).toHaveCount(1);
-  await page.locator("summary").click();
+  await page.locator(".card-result summary").click();
   await expect(page.locator(".card-result")).not.toContainText("unavailable");
   await page.getByRole("button", { name: "Ask about this card" }).click();
   await expect(page.locator(".assistant")).toHaveCount(1);
@@ -89,7 +90,7 @@ test("desktop welcome, local matches, details and accessible help", async ({
   await page.screenshot({ path: "test-results/desktop-welcome.png" });
   await page.getByRole("button", { name: /The everyday essentials/ }).click();
   await expect(page.locator(".card-result")).toHaveCount(6);
-  await page.locator("summary").first().click();
+  await page.locator(".card-result summary").first().click();
   await expect(
     page.getByRole("button", { name: "Ask about this card" }).first(),
   ).toBeVisible();
@@ -123,10 +124,9 @@ test("neutral welcome, focus card first and a spending impact summary", async ({
     "MATCH 05",
     "MATCH 06",
   ]);
-  await expect(
-    page.getByRole("heading", { name: "Other cards to consider" }),
-  ).toBeVisible();
-  await page.getByRole("button", { name: "See how they compare" }).click();
+  await expect(page.locator(".card-result:visible")).toHaveCount(2);
+  await expect(page.locator(".takeaway-text")).toBeVisible();
+  await page.locator(".tradeoff-details > summary").click();
   await expect(page.locator(".comparison-summary")).toBeInViewport();
   await expect(page.locator(".impact.positive").first()).toContainText(
     "per $100",
@@ -136,11 +136,8 @@ test("neutral welcome, focus card first and a spending impact summary", async ({
   );
   await page.screenshot({ path: "test-results/comparison-desktop.png" });
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.getByRole("button", { name: /^Matches/ }).click();
-  await page.getByRole("button", { name: "See how they compare" }).click();
   await expect(page.locator(".comparison-summary")).toBeInViewport();
   await page.screenshot({ path: "test-results/comparison-mobile.png" });
-  await page.getByRole("button", { name: "Conversation", exact: true }).click();
   await page.getByRole("textbox").fill("");
   await expect(page.locator(".comparison-summary")).toHaveCount(0);
 });
@@ -167,11 +164,15 @@ test("safe messages, conversation history, keyboard entry and reset", async ({
   );
   await input.press("Enter");
   await expect(page.locator(".assistant")).toHaveCount(1);
-  await expect(page.locator(".assistant strong")).toHaveText("A clear answer.");
+  await expect(page.locator(".assistant .visual-response")).toHaveCount(1);
+  await page.getByText("More about your question", { exact: true }).click();
+  await expect(page.locator(".assistant .message-body strong")).toHaveText(
+    "A clear answer.",
+  );
   await expect(page.locator(".message-body img")).toHaveCount(0);
   expect(await page.evaluate(() => "injected" in window)).toBe(false);
-  await expect(page.locator(".match-status")).toHaveText(
-    "Recommended by your assistant",
+  await expect(page.locator(".visual-response h2")).toContainText(
+    "Your card matches",
   );
   await input.fill("What about fees?");
   await input.press("Shift+Enter");
@@ -309,10 +310,12 @@ test("mobile panels, touch layout and no horizontal overflow", async ({
   await page.screenshot({ path: "test-results/mobile-welcome.png" });
   await page.getByRole("button", { name: /The everyday essentials/ }).click();
   await expect(page.locator(".card-result")).toHaveCount(6);
-  await page.getByRole("button", { name: /^Matches/ }).click();
   await expect(page.locator(".card-result").first()).toBeVisible();
+  await expect(page.locator(".card-result:visible")).toHaveCount(2);
+  const shortlist = await page.locator(".visual-response").boundingBox();
+  expect(shortlist!.height).toBeLessThan(600);
+  await expect(page.locator(".more-matches > summary")).toBeInViewport();
   await page.screenshot({ path: "test-results/mobile-matches.png" });
-  await page.getByRole("button", { name: "Conversation", exact: true }).click();
   await expect(page.getByRole("textbox")).toBeVisible();
   for (const width of [320, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 844 });
@@ -344,4 +347,39 @@ test("welcome and populated cards meet automated accessibility checks", async ({
         .analyze()
     ).violations,
   ).toEqual([]);
+});
+
+test("visual answers stay with each question and history excludes presentation data", async ({
+  page,
+}) => {
+  const histories: { role: string; content: string; cards?: unknown }[][] = [];
+  await page.route("**/api/chat", (route) => {
+    const request = route.request().postDataJSON();
+    histories.push(request.history);
+    return route.fulfill({
+      json: {
+        reply: "Additional context for your question.",
+        cards: [card(request.message === "gas" ? "Gas card" : "Travel card")],
+        source: "agent",
+      },
+    });
+  });
+  await page.goto("/");
+  await page.getByRole("textbox").fill("gas");
+  await page.getByRole("textbox").press("Enter");
+  await expect(page.locator(".assistant .visual-response")).toHaveCount(1);
+  await expect(page.locator(".assistant .message-body")).not.toBeVisible();
+  await expect(page.locator(".matches-panel")).toHaveCount(0);
+  await page.getByRole("textbox").fill("travel");
+  await page.getByRole("textbox").press("Enter");
+  await expect(page.locator(".assistant .visual-response")).toHaveCount(2);
+  await expect(page.locator(".assistant .card-result h3")).toHaveText([
+    "Gas card",
+    "Travel card",
+  ]);
+  expect(histories[1]).toEqual([
+    { role: "user", content: "gas" },
+    { role: "assistant", content: "Additional context for your question." },
+  ]);
+  await page.screenshot({ path: "test-results/visual-conversation.png" });
 });

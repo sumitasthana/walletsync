@@ -1,15 +1,13 @@
 import { ArrowDownRight, ArrowUpRight, Equal } from "lucide-react";
+import { useId } from "react";
 import type { Comparison } from "../types";
 
 export function ComparisonSummary({ comparison }: { comparison: Comparison }) {
+  const titleId = useId();
   return (
-    <section
-      className="comparison-summary"
-      id="comparison-summary"
-      aria-labelledby="comparison-title"
-    >
+    <section className="comparison-summary" aria-labelledby={titleId}>
       <span className="eyebrow">THE TRADEOFFS</span>
-      <h3 id="comparison-title">How it compares</h3>
+      <h3 id={titleId}>How it compares</h3>
       <p className="comparison-pair">
         <strong>{comparison.card_name}</strong>
         <span>compared with</span>

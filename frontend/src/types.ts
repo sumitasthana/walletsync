@@ -1,4 +1,9 @@
-export type Message = { role: "user" | "assistant"; content: string };
+export type Message = {
+  role: "user" | "assistant";
+  content: string;
+  cards?: Card[];
+  comparison?: Comparison | null;
+};
 export type Match = {
   category: string;
   rate: number;

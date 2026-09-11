@@ -48,7 +48,12 @@ Automated accessibility checks supplement manual visual and keyboard checks.
   checks prevent old responses from overwriting a newer draft or chat result.
 - Sending disables the composer until completion. Enter sends, Shift+Enter
   inserts a line break, and input method composition does not submit.
-- Clearing a draft restores the most recent conversation's card matches.
+- Each assistant answer keeps its own cards and comparison in the conversation.
+  The initial view shows a comparison takeaway and two compact cards. Extra
+  matches, comparison calculations, reward conditions and fees expand on demand.
+  Draft previews appear inline and disappear when the draft is cleared.
+  Additional explanation is collapsed beneath answers that contain cards.
+  Only message roles and text are sent as conversation history.
 - New chat aborts pending browser requests and clears local conversation
   state. An already running backend request may still finish.
 - Agent failures preserve local matches and expose a retry action. Errors

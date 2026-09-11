@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent, KeyboardEvent } from "react";
 import {
   ArrowDown,
@@ -12,7 +12,6 @@ import {
   MessageSquare,
   Plus,
   ShoppingBasket,
-  Sparkles,
   Terminal,
   Wallet,
   X,
@@ -21,8 +20,7 @@ import Markdown from "react-markdown";
 import "./App.css";
 
 import type { Message, Card, ChatResponse, Comparison } from "./types";
-import { CardResult } from "./components/CardResult";
-import { ComparisonSummary } from "./components/ComparisonSummary";
+import { VisualResponse } from "./components/VisualResponse";
 import { BrandMark, Wordmark } from "./components/Brand";
 
 const suggestions = [
@@ -51,14 +49,12 @@ export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [cards, setCards] = useState<Card[]>([]);
   const [comparison, setComparison] = useState<Comparison | null>(null);
-  const [source, setSource] = useState<"live" | "agent">("live");
   const [busy, setBusy] = useState(false);
   const [matching, setMatching] = useState(false);
   const [matched, setMatched] = useState(false);
   const [error, setError] = useState("");
   const [matchError, setMatchError] = useState("");
   const [failedMessage, setFailedMessage] = useState("");
-  const [tab, setTab] = useState<"chat" | "matches">("chat");
   const [help, setHelp] = useState(false);
   const [showJump, setShowJump] = useState(false);
   const input = useRef<HTMLTextAreaElement>(null);
@@ -108,7 +104,6 @@ export default function App() {
         if (revision !== version.current || controller.signal.aborted) return;
         setCards(data.matches);
         setComparison(data.comparison ?? null);
-        setSource("live");
         setMatched(true);
       } catch (e) {
         if (!controller.signal.aborted && revision === version.current)
@@ -135,6 +130,13 @@ export default function App() {
   }, [messages, busy, error]);
 
   useEffect(() => {
+    if (!busy && messages.at(-1)?.role === "assistant" && stickToBottom.current)
+      log.current
+        ?.querySelector(".assistant:last-of-type")
+        ?.scrollIntoView({ block: "start", behavior: "smooth" });
+  }, [messages, busy]);
+
+  useEffect(() => {
     if (help) helpDialog.current?.showModal();
     else if (helpDialog.current?.open) {
       helpDialog.current.close();
@@ -157,7 +159,6 @@ export default function App() {
     if (!value.trim()) {
       setCards(latestCards.current.cards);
       setComparison(latestCards.current.comparison);
-      setSource(latestCards.current.source);
       setMatched(latestCards.current.matched);
     }
   }
@@ -176,20 +177,51 @@ export default function App() {
     setError("");
     setMatchError("");
     setFailedMessage("");
-    setTab("chat");
     stickToBottom.current = true;
     const controller = new AbortController();
     chatRequest.current = controller;
     const timeout = setTimeout(() => controller.abort(), 90000);
+    let answerReceived = false;
+    setCards([]);
+    setComparison(null);
+    void fetch("/api/match", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+      signal: controller.signal,
+    })
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data = await res.json();
+        if (
+          revision !== version.current ||
+          controller.signal.aborted ||
+          answerReceived
+        )
+          return;
+        if (Array.isArray(data.matches)) {
+          setCards(data.matches);
+          setComparison(data.comparison ?? null);
+        }
+      })
+      .catch(() => {
+        /* The chat response provides the retry path. */
+      });
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, history: previous.slice(-12) }),
+        body: JSON.stringify({
+          message: text,
+          history: previous
+            .slice(-12)
+            .map(({ role, content }) => ({ role, content })),
+        }),
         signal: controller.signal,
       });
       const data: ChatResponse = await res.json();
       if (revision !== version.current) return;
+      answerReceived = true;
       if (Array.isArray(data.cards)) {
         const result = {
           cards: data.cards,
@@ -201,7 +233,6 @@ export default function App() {
         latestCards.current = result;
         setCards(result.cards);
         setComparison(result.comparison);
-        setSource(result.source);
         setMatched(true);
       }
       if (!res.ok || data.error)
@@ -212,7 +243,15 @@ export default function App() {
         throw new Error(
           "The assistant returned an empty answer. Please try again.",
         );
-      setMessages([...next, { role: "assistant", content: data.reply }]);
+      setMessages([
+        ...next,
+        {
+          role: "assistant",
+          content: data.reply,
+          cards: data.cards ?? [],
+          comparison: data.comparison ?? null,
+        },
+      ]);
     } catch (e) {
       if (revision !== version.current) return;
       setError(
@@ -224,6 +263,7 @@ export default function App() {
       );
       setFailedMessage(text);
     } finally {
+      answerReceived = true;
       clearTimeout(timeout);
       if (revision === version.current) {
         sending.current = false;
@@ -246,7 +286,6 @@ export default function App() {
     setMatchError("");
     setFailedMessage("");
     setMatched(false);
-    setTab("chat");
     setShowJump(false);
     latestCards.current = {
       cards: [],
@@ -273,7 +312,9 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell">
+    <div
+      className={`app-shell ${messages.length || matched ? "has-results" : ""}`}
+    >
       <a className="skip-link" href="#composer">
         Skip to message input
       </a>
@@ -326,20 +367,9 @@ export default function App() {
             New chat
           </button>
         </div>
-        <nav className="mobile-tabs" aria-label="Workspace panels">
-          <button aria-pressed={tab === "chat"} onClick={() => setTab("chat")}>
-            Conversation
-          </button>
-          <button
-            aria-pressed={tab === "matches"}
-            onClick={() => setTab("matches")}
-          >
-            Matches {cards.length > 0 && <span>{cards.length}</span>}
-          </button>
-        </nav>
         <main className="main-grid">
           <section
-            className={`conversation ${tab === "chat" ? "mobile-active" : ""}`}
+            className="conversation mobile-active"
             aria-label="Card conversation"
           >
             <div
@@ -354,7 +384,7 @@ export default function App() {
                 }
               }}
             >
-              {messages.length === 0 ? (
+              {messages.length === 0 && !matched ? (
                 <div className="welcome">
                   <div className="intro-label">
                     <span className="intro-line" />
@@ -424,23 +454,73 @@ export default function App() {
                             <span>ASSISTANT</span>
                           )}
                         </div>
-                        <div className="message-body">
-                          {message.role === "user" ? (
-                            message.content
-                          ) : (
-                            <Markdown
-                              skipHtml
-                              components={{
-                                img: ({ alt }) => <span>{alt}</span>,
-                              }}
-                            >
-                              {message.content}
-                            </Markdown>
-                          )}
-                        </div>
+                        {message.role === "assistant" &&
+                        !!message.cards?.length ? (
+                          <>
+                            <VisualResponse
+                              cards={message.cards}
+                              comparison={message.comparison}
+                              onAsk={(text) => void send(text)}
+                              disabled={busy}
+                            />
+                            <details className="answer-details">
+                              <summary>More about your question</summary>
+                              <div className="message-body">
+                                <Markdown
+                                  skipHtml
+                                  components={{
+                                    img: ({ alt }) => <span>{alt}</span>,
+                                  }}
+                                >
+                                  {message.content}
+                                </Markdown>
+                              </div>
+                            </details>
+                          </>
+                        ) : (
+                          <div className="message-body">
+                            {message.role === "user" ? (
+                              message.content
+                            ) : (
+                              <Markdown
+                                skipHtml
+                                components={{
+                                  img: ({ alt }) => <span>{alt}</span>,
+                                }}
+                              >
+                                {message.content}
+                              </Markdown>
+                            )}
+                          </div>
+                        )}
                       </div>
                     </article>
                   ))}
+                  {(draft.trim() || busy || error) && cards.length > 0 && (
+                    <VisualResponse
+                      cards={cards}
+                      comparison={comparison}
+                      onAsk={(text) => void send(text)}
+                      disabled={busy}
+                      preview
+                    />
+                  )}
+                  {matched && !cards.length && draft.trim() && (
+                    <p className="empty-response">
+                      No matches yet. Add a little more about your spending.
+                    </p>
+                  )}
+                  {matchError && (
+                    <p role="alert" className="match-error">
+                      {matchError}
+                    </p>
+                  )}
+                  {matching && (
+                    <p role="status" className="thinking">
+                      <LoaderCircle size={17} className="spin" />
+                      Finding your fit...
+                    </p>
+                  )}
                   {busy && (
                     <div className="thinking" role="status">
                       <LoaderCircle size={17} className="spin" />
@@ -529,124 +609,6 @@ export default function App() {
               </div>
             </div>
           </section>
-          <aside
-            className={`matches-panel ${tab === "matches" ? "mobile-active" : ""}`}
-            aria-label="Card matches"
-          >
-            <div className="matches-heading">
-              <div>
-                <span className="eyebrow">THE SHORTLIST</span>
-                <h2>
-                  Your card matches
-                  <span>
-                    {cards.length > 0
-                      ? String(cards.length).padStart(2, "0")
-                      : "00"}
-                  </span>
-                </h2>
-              </div>
-              <span className="match-indicator" title="Updates as you type">
-                <span className="status-dot" />
-                LIVE
-              </span>
-            </div>
-            <div className="match-status" role="status">
-              {matching ? (
-                <>
-                  <LoaderCircle size={13} className="spin" />
-                  Finding your fit...
-                </>
-              ) : matched ? (
-                <>
-                  <Check size={13} />
-                  {comparison
-                    ? "Compared for your spending"
-                    : source === "agent"
-                      ? "Recommended by your assistant"
-                      : "Matched to your spending"}
-                </>
-              ) : (
-                "A good match starts with you."
-              )}
-            </div>
-            {comparison && (
-              <button
-                className="comparison-jump"
-                onClick={() =>
-                  document
-                    .getElementById("comparison-summary")
-                    ?.scrollIntoView({ behavior: "auto", block: "start" })
-                }
-              >
-                See how they compare <ArrowDown size={14} />
-              </button>
-            )}
-            <div className="matches-scroll" aria-busy={matching}>
-              {matchError && (
-                <div className="match-error" role="alert">
-                  {matchError}
-                </div>
-              )}
-              {cards.length ? (
-                <div className="card-list">
-                  {cards.map((card, i) => (
-                    <Fragment key={card.card_id}>
-                      {i === 1 && comparison && (
-                        <h3 className="alternatives-heading">
-                          Other cards to consider
-                        </h3>
-                      )}
-                      <CardResult
-                        card={card}
-                        featured={card.card_id === comparison?.card_id}
-                        onAsk={(text) => void send(text)}
-                        disabled={busy}
-                      />
-                    </Fragment>
-                  ))}
-                  {comparison && <ComparisonSummary comparison={comparison} />}
-                </div>
-              ) : (
-                <div className="matches-empty">
-                  <div className="empty-art" aria-hidden="true">
-                    <div className="illustration-card back" />
-                    <div className="illustration-card front">
-                      <span className="illustration-chip" />
-                      <Wallet size={20} />
-                      <span className="illustration-number">
-                        •••• &nbsp; •••• &nbsp; ••••
-                      </span>
-                      <span className="illustration-line" />
-                    </div>
-                    <span className="art-spark">
-                      <Sparkles size={18} />
-                    </span>
-                  </div>
-                  <h3>
-                    {matched ? "No matches this time" : "Meet your next card."}
-                  </h3>
-                  <p>
-                    {matched
-                      ? "Try describing your everyday spending in a little more detail."
-                      : "As you type, we’ll connect your everyday spending to cards worth a closer look."}
-                  </p>
-                  <div className="empty-categories">
-                    <span>Groceries</span>
-                    <span>Travel</span>
-                    <span>Dining</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            <footer className="matches-footer">
-              <Leaf size={15} />
-              <p>
-                Built around your spending.
-                <br />
-                <span>Always check the latest issuer terms.</span>
-              </p>
-            </footer>
-          </aside>
         </main>
         <footer className="app-footer">
           <span>SMALL DECISIONS. SMARTER SPENDING.</span>

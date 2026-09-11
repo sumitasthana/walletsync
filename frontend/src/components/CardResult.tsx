@@ -61,10 +61,8 @@ export function CardResult({
             </strong>
             <span>
               {m.category.replaceAll("_", " ")}
-              {m.requires_activation && <small>Activation required</small>}
-              {m.notes && <small>{m.notes}</small>}
-              {m.cap_usd != null && (
-                <small>Cap: ${m.cap_usd.toLocaleString()}</small>
+              {(m.requires_activation || m.notes || m.cap_usd != null) && (
+                <small>Conditions apply</small>
               )}
             </span>
           </div>
@@ -78,6 +76,19 @@ export function CardResult({
           Fees & rewards <ChevronDown size={14} />
         </summary>
         <div className="card-details">
+          {card.matched.map((m) => (
+            <div className="reward-conditions" key={m.category}>
+              <strong>
+                {m.rate}
+                {currency} on {m.category.replaceAll("_", " ")}
+              </strong>
+              {m.requires_activation && <p>Activation required</p>}
+              {m.notes && <p>{m.notes}</p>}
+              {m.cap_usd != null && (
+                <p>Spending cap: ${m.cap_usd.toLocaleString()}</p>
+              )}
+            </div>
+          ))}
           {card.foreign_transaction_fee_pct != null && (
             <p>Foreign transaction fee: {card.foreign_transaction_fee_pct}%</p>
           )}
